@@ -275,7 +275,7 @@ export default function AnnouncementsPage() {
   }
 
   return (
-    <div className="p-4 md:p-8 space-y-6 md:space-y-8">
+    <div className="px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -410,9 +410,9 @@ export default function AnnouncementsPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Card>
-          <CardContent className="pt-6">
+          <CardContent className="p-3">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
                 <Megaphone className="w-5 h-5 text-primary" />
@@ -425,7 +425,7 @@ export default function AnnouncementsPage() {
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="pt-6">
+          <CardContent className="p-3">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/30">
                 <Bell className="w-5 h-5 text-green-600 dark:text-green-400" />
@@ -438,7 +438,7 @@ export default function AnnouncementsPage() {
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="pt-6">
+          <CardContent className="p-3">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30">
                 <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400" />
@@ -451,7 +451,7 @@ export default function AnnouncementsPage() {
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="pt-6">
+          <CardContent className="p-3">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-amber-100 dark:bg-amber-900/30">
                 <Edit className="w-5 h-5 text-amber-600 dark:text-amber-400" />

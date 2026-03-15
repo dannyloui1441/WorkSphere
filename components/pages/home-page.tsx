@@ -185,20 +185,20 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
       </div>
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-2 gap-3 mb-4">
+      <div className="grid grid-cols-2 gap-2 mb-3">
         <motion.div whileTap={{ scale: 0.98 }}>
           <Card 
             className="bg-gradient-to-br from-amber-500/10 to-yellow-500/10 border-amber-200/50 dark:border-amber-800/50 cursor-pointer hover:shadow-md transition-shadow"
             onClick={() => onNavigate('kudos')}
           >
-            <CardContent className="p-3">
+            <CardContent className="p-2.5">
               <div className="flex items-center justify-between mb-1">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-500">
-                  <Sparkles className="w-4 h-4 text-white" />
+                <div className="p-1 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-500">
+                  <Sparkles className="w-3 h-3 text-white" />
                 </div>
-                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                <ChevronRight className="w-3 h-3 text-muted-foreground" />
               </div>
-              <p className="text-xl font-bold">{kudosData.balance.toLocaleString()}</p>
+              <p className="text-lg font-bold">{kudosData.balance.toLocaleString()}</p>
               <p className="text-xs text-muted-foreground">Kudos Balance</p>
               <p className="text-xs text-emerald-600 font-medium">+125 this week</p>
             </CardContent>
@@ -210,14 +210,14 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
             className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-purple-200/50 dark:border-purple-800/50 cursor-pointer hover:shadow-md transition-shadow"
             onClick={() => onNavigate('tasks')}
           >
-            <CardContent className="p-3">
+            <CardContent className="p-2.5">
               <div className="flex items-center justify-between mb-1">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500">
-                  <ListTodo className="w-4 h-4 text-white" />
+                <div className="p-1 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500">
+                  <ListTodo className="w-3 h-3 text-white" />
                 </div>
-                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                <ChevronRight className="w-3 h-3 text-muted-foreground" />
               </div>
-              <p className="text-xl font-bold">{activeTasks.length}</p>
+              <p className="text-lg font-bold">{activeTasks.length}</p>
               <p className="text-xs text-muted-foreground">Active Tasks</p>
               <p className="text-xs text-red-500 font-medium">{highPriorityCount} high priority</p>
             </CardContent>
@@ -228,20 +228,20 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
       {/* Team Card */}
       <motion.div whileTap={{ scale: 0.98 }}>
         <Card 
-          className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-blue-200/50 dark:border-blue-800/50 mb-6 cursor-pointer hover:shadow-md transition-shadow"
+          className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-blue-200/50 dark:border-blue-800/50 mb-3 cursor-pointer hover:shadow-md transition-shadow"
           onClick={() => onNavigate('team')}
         >
-          <CardContent className="p-3 flex items-center justify-between">
+          <CardContent className="p-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500">
-                <Users className="w-4 h-4 text-white" />
+              <div className="p-1.5 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500">
+                <Users className="w-3.5 h-3.5 text-white" />
               </div>
               <div>
-                <p className="font-semibold text-sm">My Team</p>
+                <p className="font-semibold text-xs">My Team</p>
                 <p className="text-xs text-muted-foreground">5 members &bull; 2 active tasks</p>
               </div>
             </div>
-            <ChevronRight className="w-5 h-5 text-muted-foreground" />
+            <ChevronRight className="w-4 h-4 text-muted-foreground" />
           </CardContent>
         </Card>
       </motion.div>

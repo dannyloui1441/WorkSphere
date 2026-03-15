@@ -84,119 +84,119 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
   const attendanceHistory = getEmployeeAttendanceHistory(id)
 
   return (
-    <div className="p-8 space-y-8">
+    <div className="px-4 py-6 md:px-8 md:py-8 space-y-6 md:space-y-8">
       {/* Header */}
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" onClick={() => router.back()}>
+      <div className="flex items-center gap-3 md:gap-4">
+        <Button variant="ghost" size="icon" onClick={() => router.back()} className="flex-shrink-0">
           <ArrowLeft className="w-5 h-5" />
         </Button>
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Employee Details</h1>
-          <p className="text-muted-foreground">View detailed information for {employee.name}</p>
+        <div className="min-w-0">
+          <h1 className="text-lg md:text-2xl font-bold text-foreground">Employee Details</h1>
+          <p className="text-sm md:text-base text-muted-foreground truncate">View info for {employee.name}</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList className="grid w-full max-w-md grid-cols-4">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="tasks">Tasks</TabsTrigger>
-          <TabsTrigger value="kudos">Kudos</TabsTrigger>
-          <TabsTrigger value="attendance">Attendance</TabsTrigger>
+      <Tabs defaultValue="overview" className="space-y-4 md:space-y-6">
+        <TabsList className="grid w-full grid-cols-4 h-auto">
+          <TabsTrigger value="overview" className="text-xs md:text-sm py-2">Overview</TabsTrigger>
+          <TabsTrigger value="tasks" className="text-xs md:text-sm py-2">Tasks</TabsTrigger>
+          <TabsTrigger value="kudos" className="text-xs md:text-sm py-2">Kudos</TabsTrigger>
+          <TabsTrigger value="attendance" className="text-xs md:text-sm py-2">Attendance</TabsTrigger>
         </TabsList>
 
         {/* Overview Tab */}
-        <TabsContent value="overview" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Profile Card */}
-            <Card className="lg:col-span-1">
-              <CardContent className="p-6">
-                <div className="flex flex-col items-center text-center">
-                  <Avatar className="h-24 w-24 mb-4">
-                    <AvatarImage src={employee.avatar} />
-                    <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-2xl font-semibold">
-                      {employee.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <h2 className="text-xl font-bold text-foreground">{employee.name}</h2>
-                  <p className="text-muted-foreground mb-2">{employee.role}</p>
-                  <div className="flex items-center gap-2">
+        <TabsContent value="overview" className="space-y-4 md:space-y-6">
+          {/* Profile Card - Stacked on mobile */}
+          <Card>
+            <CardContent className="p-4 md:p-6">
+              <div className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left md:gap-6">
+                <Avatar className="h-20 w-20 md:h-24 md:w-24 mb-3 md:mb-0 flex-shrink-0">
+                  <AvatarImage src={employee.avatar} />
+                  <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xl md:text-2xl font-semibold">
+                    {employee.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1">
+                  <h2 className="text-lg md:text-xl font-bold text-foreground">{employee.name}</h2>
+                  <p className="text-sm text-muted-foreground mb-2">{employee.role}</p>
+                  <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
                     {getStatusDot(employee.status)}
                     <span className="text-sm capitalize text-muted-foreground">{employee.status}</span>
                   </div>
                   
-                  <div className="w-full mt-6 space-y-3 text-left">
-                    <div className="flex items-center gap-3 text-sm">
-                      <Mail className="w-4 h-4 text-muted-foreground" />
-                      <span className="text-foreground">{employee.email}</span>
+                  <div className="space-y-2 text-left">
+                    <div className="flex items-center gap-3 text-sm justify-center md:justify-start">
+                      <Mail className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                      <span className="text-foreground truncate">{employee.email}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-sm">
-                      <Calendar className="w-4 h-4 text-muted-foreground" />
+                    <div className="flex items-center gap-3 text-sm justify-center md:justify-start">
+                      <Calendar className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                       <span className="text-foreground">Joined {employee.joinDate}</span>
                     </div>
                   </div>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Stats Cards - 2 cols mobile, 4 cols desktop */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            <Card>
+              <CardContent className="p-4 md:p-6">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-3">
+                  <div className="p-2 md:p-3 rounded-xl bg-orange-500/10">
+                    <Flame className="w-5 h-5 md:w-6 md:h-6 text-orange-500" />
+                  </div>
+                  <div className="text-center md:text-left">
+                    <p className="text-lg md:text-2xl font-bold text-foreground">{employee.streak}</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">Day Streak</p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
-
-            {/* Stats Cards */}
-            <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-orange-500/10">
-                      <Flame className="w-6 h-6 text-orange-500" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-foreground">{employee.streak} days</p>
-                      <p className="text-sm text-muted-foreground">Current Streak</p>
-                    </div>
+            
+            <Card>
+              <CardContent className="p-4 md:p-6">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-3">
+                  <div className="p-2 md:p-3 rounded-xl bg-blue-500/10">
+                    <Clock className="w-5 h-5 md:w-6 md:h-6 text-blue-500" />
                   </div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-blue-500/10">
-                      <Clock className="w-6 h-6 text-blue-500" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-foreground">{employee.totalHoursWorked.toLocaleString()}</p>
-                      <p className="text-sm text-muted-foreground">Total Hours</p>
-                    </div>
+                  <div className="text-center md:text-left">
+                    <p className="text-lg md:text-2xl font-bold text-foreground">{employee.totalHoursWorked.toLocaleString()}</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">Total Hours</p>
                   </div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-amber-500/10">
-                      <Sparkles className="w-6 h-6 text-amber-500" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-foreground">{employee.kudosBalance.toLocaleString()}</p>
-                      <p className="text-sm text-muted-foreground">Kudos Balance</p>
-                    </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-4 md:p-6">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-3">
+                  <div className="p-2 md:p-3 rounded-xl bg-amber-500/10">
+                    <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-amber-500" />
                   </div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3">
-                    <div className="p-3 rounded-xl bg-emerald-500/10">
-                      <CheckCircle className="w-6 h-6 text-emerald-500" />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-foreground">{employee.tasksCompleted}</p>
-                      <p className="text-sm text-muted-foreground">Tasks Completed</p>
-                    </div>
+                  <div className="text-center md:text-left">
+                    <p className="text-lg md:text-2xl font-bold text-foreground">{employee.kudosBalance.toLocaleString()}</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">Kudos</p>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-4 md:p-6">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-3">
+                  <div className="p-2 md:p-3 rounded-xl bg-emerald-500/10">
+                    <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-emerald-500" />
+                  </div>
+                  <div className="text-center md:text-left">
+                    <p className="text-lg md:text-2xl font-bold text-foreground">{employee.tasksCompleted}</p>
+                    <p className="text-xs md:text-sm text-muted-foreground">Tasks Done</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </TabsContent>
 

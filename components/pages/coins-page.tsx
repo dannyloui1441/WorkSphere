@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { format } from 'date-fns'
-import { Coins, Search, TrendingUp, TrendingDown, Coffee, Home, Film, CalendarX, Gift, Clock, ShoppingBag, Calendar, GraduationCap, Utensils, Award, Users, Dumbbell, Plane, Filter, ArrowUpRight, ArrowDownRight } from 'lucide-react'
+import { Sparkles, Search, TrendingUp, TrendingDown, Coffee, Home, Film, CalendarX, Gift, Clock, ShoppingBag, Calendar, GraduationCap, Utensils, Award, Users, Dumbbell, Plane, Filter, ArrowUpRight, ArrowDownRight } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -11,18 +11,18 @@ import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { transactions as initialTransactions, rewards, type Transaction } from '@/lib/mockData'
-import { cn, type CoinsData, updateCoins, addTransaction, getTransactions } from '@/lib/utils'
+import { cn, type KudosData, updateKudos, addTransaction, getTransactions } from '@/lib/utils'
 
 const iconMap: Record<string, typeof Coffee> = {
   Coffee, Home, Film, CalendarX, Gift, Clock, ShoppingBag, Calendar, GraduationCap, Utensils, Award, Users, Dumbbell, Plane
 }
 
 interface CoinsPageProps {
-  coinsData: CoinsData
-  onCoinsUpdate: () => void
+  kudosData: KudosData
+  onKudosUpdate: () => void
 }
 
-export function CoinsPage({ coinsData, onCoinsUpdate }: CoinsPageProps) {
+export function CoinsPage({ kudosData, onKudosUpdate }: CoinsPageProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [timeFilter, setTimeFilter] = useState('all')
   const [typeFilter, setTypeFilter] = useState('all')
@@ -57,7 +57,7 @@ export function CoinsPage({ coinsData, onCoinsUpdate }: CoinsPageProps) {
   })
 
   const handleRedeem = (reward: typeof rewards[0]) => {
-    updateCoins('spend', reward.cost)
+    updateKudos('spend', reward.cost)
     const newTxns = addTransaction({
       type: 'spent',
       description: `Redeemed: ${reward.name}`,
@@ -67,7 +67,7 @@ export function CoinsPage({ coinsData, onCoinsUpdate }: CoinsPageProps) {
     })
     setTransactions([...newTxns, ...initialTransactions.filter(t => !newTxns.some(nt => nt.id === t.id))])
     setRedeemSuccess(reward.name)
-    onCoinsUpdate()
+    onKudosUpdate()
     setTimeout(() => setRedeemSuccess(null), 2000)
   }
 
@@ -91,27 +91,27 @@ export function CoinsPage({ coinsData, onCoinsUpdate }: CoinsPageProps) {
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
         <CardContent className="p-6 relative">
           <div className="flex items-center gap-2 mb-2">
-            <Coins className="w-6 h-6" />
+            <Sparkles className="w-6 h-6" />
             <span className="text-sm font-medium opacity-90">Current Balance</span>
           </div>
-          <p className="text-4xl font-bold mb-4">{coinsData.balance.toLocaleString()}</p>
+          <p className="text-4xl font-bold mb-4">{kudosData.balance.toLocaleString()}</p>
           
           <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/20">
             <div>
-              <p className="text-2xl font-bold">{coinsData.lifetimeEarned.toLocaleString()}</p>
+              <p className="text-2xl font-bold">{kudosData.lifetimeEarned.toLocaleString()}</p>
               <p className="text-xs opacity-80">Lifetime Earned</p>
             </div>
             <div>
               <div className="flex items-center gap-1">
                 <TrendingUp className="w-4 h-4" />
-                <p className="text-lg font-bold">+{coinsData.thisMonthEarned}</p>
+                <p className="text-lg font-bold">+{kudosData.thisMonthEarned}</p>
               </div>
               <p className="text-xs opacity-80">This Month</p>
             </div>
             <div>
               <div className="flex items-center gap-1">
                 <TrendingDown className="w-4 h-4" />
-                <p className="text-lg font-bold">-{coinsData.thisMonthSpent}</p>
+                <p className="text-lg font-bold">-{kudosData.thisMonthSpent}</p>
               </div>
               <p className="text-xs opacity-80">Spent</p>
             </div>
@@ -223,7 +223,7 @@ export function CoinsPage({ coinsData, onCoinsUpdate }: CoinsPageProps) {
           <div className="grid grid-cols-2 gap-3">
             {filteredRewards.map((reward, index) => {
               const IconComponent = iconMap[reward.icon] || Gift
-              const canAfford = coinsData.balance >= reward.cost
+              const canAfford = kudosData.balance >= reward.cost
               
               return (
                 <motion.div
@@ -249,7 +249,7 @@ export function CoinsPage({ coinsData, onCoinsUpdate }: CoinsPageProps) {
                       <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{reward.description}</p>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1 text-amber-500">
-                          <Coins className="w-4 h-4" />
+                          <Sparkles className="w-4 h-4" />
                           <span className="font-bold">{reward.cost}</span>
                         </div>
                         <Button 

@@ -1,10 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Calendar, Users, Home, Bell, Coins } from 'lucide-react'
+import { Calendar, Users, Home, Bell, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-export type TabType = 'calendar' | 'team' | 'home' | 'tasks' | 'coins'
+export type TabType = 'calendar' | 'team' | 'home' | 'tasks' | 'kudos'
 
 interface NavigationProps {
   activeTab: TabType
@@ -16,7 +16,7 @@ const tabs: { id: TabType; icon: typeof Home; label: string; gradient: string }[
   { id: 'team', icon: Users, label: 'Team', gradient: 'from-blue-500 to-cyan-600' },
   { id: 'home', icon: Home, label: 'Home', gradient: 'from-indigo-500 to-purple-600' },
   { id: 'tasks', icon: Bell, label: 'Tasks', gradient: 'from-purple-500 to-pink-600' },
-  { id: 'coins', icon: Coins, label: 'Coins', gradient: 'from-amber-500 to-yellow-500' }
+  { id: 'kudos', icon: Sparkles, label: 'Kudos', gradient: 'from-amber-500 to-yellow-500' }
 ]
 
 export function Navigation({ activeTab, onTabChange }: NavigationProps) {

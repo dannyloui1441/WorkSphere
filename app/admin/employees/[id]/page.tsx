@@ -84,54 +84,54 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
   const attendanceHistory = getEmployeeAttendanceHistory(id)
 
   return (
-    <div className="px-4 py-6 md:px-8 md:py-8 space-y-6 md:space-y-8">
+    <div className="px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
-      <div className="flex items-center gap-3 md:gap-4">
-        <Button variant="ghost" size="icon" onClick={() => router.back()} className="flex-shrink-0">
-          <ArrowLeft className="w-5 h-5" />
+      <div className="flex items-center gap-2 mb-4">
+        <Button variant="ghost" size="icon" onClick={() => router.back()} className="flex-shrink-0 h-8 w-8">
+          <ArrowLeft className="w-4 h-4" />
         </Button>
         <div className="min-w-0">
-          <h1 className="text-lg md:text-2xl font-bold text-foreground">Employee Details</h1>
-          <p className="text-sm md:text-base text-muted-foreground truncate">View info for {employee.name}</p>
+          <h1 className="text-xl font-bold text-foreground">Employee Details</h1>
+          <p className="text-xs text-muted-foreground truncate">View info for {employee.name}</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="overview" className="space-y-4 md:space-y-6">
+      <Tabs defaultValue="overview" className="space-y-4">
         <TabsList className="grid w-full grid-cols-4 h-auto">
-          <TabsTrigger value="overview" className="text-xs md:text-sm py-2">Overview</TabsTrigger>
-          <TabsTrigger value="tasks" className="text-xs md:text-sm py-2">Tasks</TabsTrigger>
-          <TabsTrigger value="kudos" className="text-xs md:text-sm py-2">Kudos</TabsTrigger>
-          <TabsTrigger value="attendance" className="text-xs md:text-sm py-2">Attendance</TabsTrigger>
+          <TabsTrigger value="overview" className="text-xs py-1.5">Overview</TabsTrigger>
+          <TabsTrigger value="tasks" className="text-xs py-1.5">Tasks</TabsTrigger>
+          <TabsTrigger value="kudos" className="text-xs py-1.5">Kudos</TabsTrigger>
+          <TabsTrigger value="attendance" className="text-xs py-1.5">Attendance</TabsTrigger>
         </TabsList>
 
         {/* Overview Tab */}
-        <TabsContent value="overview" className="space-y-4 md:space-y-6">
+        <TabsContent value="overview" className="space-y-4">
           {/* Profile Card - Stacked on mobile */}
           <Card>
-            <CardContent className="p-4 md:p-6">
-              <div className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left md:gap-6">
-                <Avatar className="h-20 w-20 md:h-24 md:w-24 mb-3 md:mb-0 flex-shrink-0">
+            <CardContent className="p-4">
+              <div className="flex flex-col items-center text-center md:flex-row md:items-start md:text-left md:gap-4">
+                <Avatar className="h-16 w-16 mb-2 md:mb-0 flex-shrink-0">
                   <AvatarImage src={employee.avatar} />
-                  <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xl md:text-2xl font-semibold">
+                  <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-lg font-semibold">
                     {employee.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
-                  <h2 className="text-lg md:text-xl font-bold text-foreground">{employee.name}</h2>
-                  <p className="text-sm text-muted-foreground mb-2">{employee.role}</p>
-                  <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
+                  <h2 className="text-base font-bold text-foreground">{employee.name}</h2>
+                  <p className="text-xs text-muted-foreground mb-1">{employee.role}</p>
+                  <div className="flex items-center justify-center md:justify-start gap-1.5 mb-3">
                     {getStatusDot(employee.status)}
-                    <span className="text-sm capitalize text-muted-foreground">{employee.status}</span>
+                    <span className="text-xs capitalize text-muted-foreground">{employee.status}</span>
                   </div>
                   
-                  <div className="space-y-2 text-left">
-                    <div className="flex items-center gap-3 text-sm justify-center md:justify-start">
-                      <Mail className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                  <div className="space-y-1 text-left">
+                    <div className="flex items-center gap-2 text-xs justify-center md:justify-start">
+                      <Mail className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
                       <span className="text-foreground truncate">{employee.email}</span>
                     </div>
-                    <div className="flex items-center gap-3 text-sm justify-center md:justify-start">
-                      <Calendar className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                    <div className="flex items-center gap-2 text-xs justify-center md:justify-start">
+                      <Calendar className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
                       <span className="text-foreground">Joined {employee.joinDate}</span>
                     </div>
                   </div>
@@ -141,58 +141,58 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
           </Card>
 
           {/* Stats Cards - 2 cols mobile, 4 cols desktop */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <Card>
-              <CardContent className="p-4 md:p-6">
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-3">
-                  <div className="p-2 md:p-3 rounded-xl bg-orange-500/10">
-                    <Flame className="w-5 h-5 md:w-6 md:h-6 text-orange-500" />
+              <CardContent className="p-3">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2">
+                  <div className="p-2 rounded-lg bg-orange-500/10">
+                    <Flame className="w-4 h-4 text-orange-500" />
                   </div>
                   <div className="text-center md:text-left">
-                    <p className="text-lg md:text-2xl font-bold text-foreground">{employee.streak}</p>
-                    <p className="text-xs md:text-sm text-muted-foreground">Day Streak</p>
+                    <p className="text-lg font-bold text-foreground">{employee.streak}</p>
+                    <p className="text-xs text-muted-foreground">Day Streak</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
             
             <Card>
-              <CardContent className="p-4 md:p-6">
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-3">
-                  <div className="p-2 md:p-3 rounded-xl bg-blue-500/10">
-                    <Clock className="w-5 h-5 md:w-6 md:h-6 text-blue-500" />
+              <CardContent className="p-3">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2">
+                  <div className="p-2 rounded-lg bg-blue-500/10">
+                    <Clock className="w-4 h-4 text-blue-500" />
                   </div>
                   <div className="text-center md:text-left">
-                    <p className="text-lg md:text-2xl font-bold text-foreground">{employee.totalHoursWorked.toLocaleString()}</p>
-                    <p className="text-xs md:text-sm text-muted-foreground">Total Hours</p>
+                    <p className="text-lg font-bold text-foreground">{employee.totalHoursWorked.toLocaleString()}</p>
+                    <p className="text-xs text-muted-foreground">Total Hours</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
             
             <Card>
-              <CardContent className="p-4 md:p-6">
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-3">
-                  <div className="p-2 md:p-3 rounded-xl bg-amber-500/10">
-                    <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-amber-500" />
+              <CardContent className="p-3">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2">
+                  <div className="p-2 rounded-lg bg-amber-500/10">
+                    <Sparkles className="w-4 h-4 text-amber-500" />
                   </div>
                   <div className="text-center md:text-left">
-                    <p className="text-lg md:text-2xl font-bold text-foreground">{employee.kudosBalance.toLocaleString()}</p>
-                    <p className="text-xs md:text-sm text-muted-foreground">Kudos</p>
+                    <p className="text-lg font-bold text-foreground">{employee.kudosBalance.toLocaleString()}</p>
+                    <p className="text-xs text-muted-foreground">Kudos</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
             
             <Card>
-              <CardContent className="p-4 md:p-6">
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-3">
-                  <div className="p-2 md:p-3 rounded-xl bg-emerald-500/10">
-                    <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-emerald-500" />
+              <CardContent className="p-3">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-2">
+                  <div className="p-2 rounded-lg bg-emerald-500/10">
+                    <CheckCircle className="w-4 h-4 text-emerald-500" />
                   </div>
                   <div className="text-center md:text-left">
-                    <p className="text-lg md:text-2xl font-bold text-foreground">{employee.tasksCompleted}</p>
-                    <p className="text-xs md:text-sm text-muted-foreground">Tasks Done</p>
+                    <p className="text-lg font-bold text-foreground">{employee.tasksCompleted}</p>
+                    <p className="text-xs text-muted-foreground">Tasks Done</p>
                   </div>
                 </div>
               </CardContent>
@@ -201,31 +201,31 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
         </TabsContent>
 
         {/* Tasks Tab */}
-        <TabsContent value="tasks" className="space-y-6">
+        <TabsContent value="tasks" className="space-y-4">
           <Card>
-            <CardHeader>
-              <CardTitle>Assigned Tasks</CardTitle>
+            <CardHeader className="pb-2 pt-4 px-4">
+              <CardTitle className="text-sm">Assigned Tasks</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-2 px-4 pb-4">
               {tasks.length === 0 ? (
-                <p className="text-muted-foreground text-center py-8">No tasks assigned.</p>
+                <p className="text-muted-foreground text-center py-6 text-sm">No tasks assigned.</p>
               ) : (
                 tasks.map((task) => (
                   <div 
                     key={task.id}
-                    className="flex items-center justify-between p-4 rounded-lg border border-border bg-card hover:bg-muted/50 transition-colors"
+                    className="flex items-center justify-between p-3 rounded-lg border border-border bg-card hover:bg-muted/50 transition-colors"
                   >
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <p className="font-medium text-foreground">{task.title}</p>
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <p className="font-medium text-foreground text-sm">{task.title}</p>
                         {getPriorityBadge(task.priority)}
                       </div>
-                      <p className="text-sm text-muted-foreground">Due: {task.dueDate}</p>
+                      <p className="text-xs text-muted-foreground">Due: {task.dueDate}</p>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                       <div className="flex items-center gap-1 text-amber-500">
-                        <Sparkles className="w-4 h-4" />
-                        <span className="font-semibold">{task.kudos}</span>
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span className="font-semibold text-sm">{task.kudos}</span>
                       </div>
                       {getTaskStatusBadge(task.status)}
                     </div>
@@ -237,43 +237,43 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
         </TabsContent>
 
         {/* Kudos Tab */}
-        <TabsContent value="kudos" className="space-y-6">
+        <TabsContent value="kudos" className="space-y-4">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Kudos History</CardTitle>
-              <Badge className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 text-lg px-4 py-1">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 pt-4 px-4">
+              <CardTitle className="text-sm">Kudos History</CardTitle>
+              <Badge className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 text-sm px-2 py-0.5">
                 {employee.kudosBalance.toLocaleString()} Kudos
               </Badge>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-2 px-4 pb-4">
               {kudosHistory.map((txn) => (
                 <div 
                   key={txn.id}
-                  className="flex items-center justify-between p-4 rounded-lg bg-muted/50"
+                  className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <div className={cn(
-                      'w-10 h-10 rounded-full flex items-center justify-center',
+                      'w-8 h-8 rounded-full flex items-center justify-center',
                       txn.type === 'earned' ? 'bg-emerald-500/10' : 'bg-red-500/10'
                     )}>
                       <Sparkles className={cn(
-                        'w-5 h-5',
+                        'w-4 h-4',
                         txn.type === 'earned' ? 'text-emerald-500' : 'text-red-500'
                       )} />
                     </div>
                     <div>
-                      <p className="font-medium text-foreground">{txn.description}</p>
-                      <p className="text-sm text-muted-foreground">{txn.date}</p>
+                      <p className="font-medium text-foreground text-sm">{txn.description}</p>
+                      <p className="text-xs text-muted-foreground">{txn.date}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className={cn(
-                      'font-bold',
+                      'font-bold text-sm',
                       txn.type === 'earned' ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'
                     )}>
                       {txn.type === 'earned' ? '+' : '-'}{txn.amount}
                     </p>
-                    <p className="text-xs text-muted-foreground capitalize">{txn.category}</p>
+                    <p className="text-[10px] text-muted-foreground capitalize">{txn.category}</p>
                   </div>
                 </div>
               ))}
@@ -282,12 +282,12 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
         </TabsContent>
 
         {/* Attendance Tab */}
-        <TabsContent value="attendance" className="space-y-6">
+        <TabsContent value="attendance" className="space-y-4">
           <Card>
-            <CardHeader>
-              <CardTitle>March 2026 Attendance</CardTitle>
+            <CardHeader className="pb-2 pt-4 px-4">
+              <CardTitle className="text-sm">March 2026 Attendance</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="px-4 pb-4">
               {/* Calendar Grid */}
               <div className="grid grid-cols-7 gap-2">
                 {/* Day Headers */}

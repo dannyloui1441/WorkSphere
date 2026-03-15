@@ -267,58 +267,58 @@ export default function KudosPage() {
   }
 
   return (
-    <div className="px-4 py-6 md:px-8 md:py-6 space-y-6 md:space-y-8">
+    <div className="px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
-      <div>
-        <h1 className="text-xl md:text-2xl font-bold text-foreground">Kudos</h1>
-        <p className="text-sm md:text-base text-muted-foreground">Track and award team kudos.</p>
+      <div className="mb-4">
+        <h1 className="text-xl font-bold text-foreground">Kudos</h1>
+        <p className="text-xs text-muted-foreground">Track and award team kudos.</p>
       </div>
 
       {/* Leaderboard */}
       <Card>
-        <CardHeader className="pb-4">
-          <CardTitle className="text-base md:text-lg flex items-center gap-2">
-            <Award className="w-5 h-5 text-amber-500" />
+        <CardHeader className="pb-2 pt-4 px-4">
+          <CardTitle className="text-sm flex items-center gap-2">
+            <Award className="w-4 h-4 text-amber-500" />
             Kudos Leaderboard
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3 md:space-y-4">
+        <CardContent className="space-y-2 px-4 pb-4">
           {sortedByKudos.map((employee, index) => (
             <div 
               key={employee.id}
               className={cn(
-                'flex items-center justify-between p-3 md:p-4 rounded-lg transition-colors',
+                'flex items-center justify-between p-2.5 rounded-lg transition-colors',
                 index === 0 
                   ? 'bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/20' 
                   : 'bg-muted/50 hover:bg-muted'
               )}
             >
-              <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-1 min-w-0">
                 {/* Rank Badge */}
                 <div className={cn(
-                  'w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center font-bold text-xs md:text-sm flex-shrink-0',
+                  'w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0',
                   getRankStyle(index)
                 )}>
                   {index + 1}
                 </div>
                 
                 {/* Avatar */}
-                <Avatar className="h-9 w-9 md:h-10 md:w-10 flex-shrink-0">
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" />
-                  <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs md:text-sm">
+                <Avatar className="h-8 w-8 flex-shrink-0">
+                  <AvatarImage src="/placeholder.svg?height=32&width=32" />
+                  <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs">
                     {employee.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                   </AvatarFallback>
                 </Avatar>
                 
                 {/* Name and Role */}
                 <div className="min-w-0 flex-1">
-                  <p className="font-medium text-foreground text-sm md:text-base truncate">{employee.name}</p>
-                  <p className="text-xs md:text-sm text-muted-foreground truncate">{employee.role}</p>
+                  <p className="font-medium text-foreground text-sm truncate">{employee.name}</p>
+                  <p className="text-xs text-muted-foreground truncate">{employee.role}</p>
                 </div>
                 
                 {/* Progress Bar - hidden on mobile */}
-                <div className="hidden md:block flex-1 max-w-[200px]">
-                  <div className="h-2 bg-muted rounded-full overflow-hidden">
+                <div className="hidden md:block flex-1 max-w-[160px]">
+                  <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                     <div 
                       className={cn(
                         'h-full rounded-full transition-all',
@@ -334,9 +334,9 @@ export default function KudosPage() {
               </div>
               
               {/* Balance */}
-              <div className="flex items-center gap-1.5 text-amber-500 flex-shrink-0">
-                <Sparkles className="w-4 h-4 md:w-5 md:h-5" />
-                <span className="text-lg md:text-xl font-bold">{employee.balance.toLocaleString()}</span>
+              <div className="flex items-center gap-1 text-amber-500 flex-shrink-0">
+                <Sparkles className="w-4 h-4" />
+                <span className="text-base font-bold">{employee.balance.toLocaleString()}</span>
               </div>
             </div>
           ))}
@@ -345,13 +345,13 @@ export default function KudosPage() {
 
       {/* Award Performance Bonus */}
       <Card>
-        <CardHeader className="pb-4">
-          <CardTitle className="text-base md:text-lg flex items-center gap-2">
-            <Gift className="w-5 h-5 text-purple-500" />
+        <CardHeader className="pb-2 pt-4 px-4">
+          <CardTitle className="text-sm flex items-center gap-2">
+            <Gift className="w-4 h-4 text-purple-500" />
             Award Performance Bonus
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 pb-4">
           <form onSubmit={handleAwardKudos} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -406,10 +406,10 @@ export default function KudosPage() {
 
       {/* Rewards Catalogue */}
       <Card>
-        <CardHeader className="pb-4">
+        <CardHeader className="pb-2 pt-4 px-4">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-base md:text-lg flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-500" />
+            <CardTitle className="text-sm flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-amber-500" />
               Rewards Catalogue
             </CardTitle>
             <Dialog open={rewardDialogOpen} onOpenChange={(open) => {

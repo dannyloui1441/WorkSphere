@@ -205,42 +205,42 @@ export default function TasksPage() {
   const completedCount = tasks.filter(t => t.status === 'completed').length
 
   return (
-    <div className="px-4 py-6 md:px-8 md:py-6 space-y-6 md:space-y-8">
+    <div className="px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
-      <div>
-        <h1 className="text-xl md:text-2xl font-bold text-foreground">Tasks</h1>
-        <p className="text-sm md:text-base text-muted-foreground">Create and manage team tasks.</p>
+      <div className="mb-4">
+        <h1 className="text-xl font-bold text-foreground">Tasks</h1>
+        <p className="text-xs text-muted-foreground">Create and manage team tasks.</p>
       </div>
 
       {/* Stats - 3 columns on mobile, same on desktop */}
-      <div className="grid grid-cols-3 gap-3 md:gap-4">
+      <div className="grid grid-cols-3 gap-3">
         <Card className="border-l-4 border-l-amber-500">
-          <CardContent className="p-3 md:p-4">
-            <p className="text-xl md:text-2xl font-bold text-foreground">{pendingCount}</p>
-            <p className="text-xs md:text-sm text-muted-foreground">Pending</p>
+          <CardContent className="p-3">
+            <p className="text-xl font-bold text-foreground">{pendingCount}</p>
+            <p className="text-xs text-muted-foreground">Pending</p>
           </CardContent>
         </Card>
         <Card className="border-l-4 border-l-blue-500">
-          <CardContent className="p-3 md:p-4">
-            <p className="text-xl md:text-2xl font-bold text-foreground">{inProgressCount}</p>
-            <p className="text-xs md:text-sm text-muted-foreground">In Progress</p>
+          <CardContent className="p-3">
+            <p className="text-xl font-bold text-foreground">{inProgressCount}</p>
+            <p className="text-xs text-muted-foreground">In Progress</p>
           </CardContent>
         </Card>
         <Card className="border-l-4 border-l-emerald-500">
-          <CardContent className="p-3 md:p-4">
-            <p className="text-xl md:text-2xl font-bold text-foreground">{completedCount}</p>
-            <p className="text-xs md:text-sm text-muted-foreground">Completed</p>
+          <CardContent className="p-3">
+            <p className="text-xl font-bold text-foreground">{completedCount}</p>
+            <p className="text-xs text-muted-foreground">Completed</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Create Task Form */}
       <Card>
-        <CardHeader className="pb-4">
-          <CardTitle className="text-base md:text-lg">Create New Task</CardTitle>
+        <CardHeader className="pb-2 pt-4 px-4">
+          <CardTitle className="text-sm">Create New Task</CardTitle>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+        <CardContent className="px-4 pb-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             {/* Title */}
             <div className="space-y-2">
               <Label htmlFor="title">Task Title</Label>
@@ -398,9 +398,9 @@ export default function TasksPage() {
 
       {/* All Tasks List */}
       <Card>
-        <CardHeader className="pb-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <CardTitle className="text-base md:text-lg">All Tasks</CardTitle>
+        <CardHeader className="pb-2 pt-4 px-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <CardTitle className="text-sm">All Tasks</CardTitle>
             <div className="flex flex-wrap gap-2">
               {['all', 'pending', 'in-progress', 'completed', 'team'].map((f) => (
                 <Button
@@ -422,19 +422,19 @@ export default function TasksPage() {
             </div>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 pb-4">
           {filteredTasks.length === 0 ? (
-            <p className="text-center text-muted-foreground py-8">No tasks found.</p>
+            <p className="text-center text-muted-foreground py-6 text-sm">No tasks found.</p>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {filteredTasks.map((task) => (
                 <div 
                   key={task.id}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 md:p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
                 >
-                  <div className="flex-1 min-w-0 space-y-1">
+                  <div className="flex-1 min-w-0 space-y-0.5">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <p className="font-medium text-foreground text-sm md:text-base truncate">{task.title}</p>
+                      <p className="font-medium text-foreground text-sm truncate">{task.title}</p>
                       {task.isTeamTask && (
                         <Badge variant="outline" className="text-xs gap-1">
                           <Users className="w-3 h-3" />

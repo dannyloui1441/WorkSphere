@@ -22,26 +22,26 @@ export default function EmployeesPage() {
   const router = useRouter()
 
   return (
-    <div className="px-4 py-6 md:px-8 space-y-6 md:space-y-8">
+    <div className="px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
-      <div>
-        <h1 className="text-xl md:text-2xl font-bold text-foreground">Employees</h1>
-        <p className="text-sm md:text-base text-muted-foreground">Manage and view all employee information.</p>
+      <div className="mb-4">
+        <h1 className="text-xl font-bold text-foreground">Employees</h1>
+        <p className="text-xs text-muted-foreground">Manage and view all employee information.</p>
       </div>
 
       {/* Mobile Card List */}
-      <div className="md:hidden space-y-3">
+      <div className="md:hidden space-y-2">
         {adminEmployees.map((employee) => (
           <Card 
             key={employee.id}
             onClick={() => router.push(`/admin/employees/${employee.id}`)}
             className="cursor-pointer hover:bg-muted/50 transition-colors"
           >
-            <CardContent className="p-4">
-              <div className="flex items-start gap-3">
-                <Avatar className="h-12 w-12 flex-shrink-0">
+            <CardContent className="p-3">
+              <div className="flex items-start gap-2">
+                <Avatar className="h-10 w-10 flex-shrink-0">
                   <AvatarImage src={employee.avatar} />
-                  <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-sm">
+                  <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs">
                     {employee.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                   </AvatarFallback>
                 </Avatar>
@@ -88,20 +88,20 @@ export default function EmployeesPage() {
 
       {/* Desktop Table */}
       <Card className="hidden md:block">
-        <CardHeader>
-          <CardTitle className="text-lg">All Employees</CardTitle>
+        <CardHeader className="pb-2 pt-4 px-4">
+          <CardTitle className="text-sm">All Employees</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 pb-4">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Employee</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Role</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Status</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Kudos Balance</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Tasks Completed</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Attendance</th>
+                  <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground">Employee</th>
+                  <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground">Role</th>
+                  <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground">Status</th>
+                  <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground">Kudos</th>
+                  <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground">Tasks</th>
+                  <th className="text-left py-2 px-3 text-xs font-medium text-muted-foreground">Attendance</th>
                 </tr>
               </thead>
               <tbody>
@@ -111,40 +111,40 @@ export default function EmployeesPage() {
                     onClick={() => router.push(`/admin/employees/${employee.id}`)}
                     className="border-b border-border last:border-0 hover:bg-muted/50 cursor-pointer transition-colors"
                   >
-                    <td className="py-4 px-4">
-                      <div className="flex items-center gap-3">
-                        <Avatar className="h-10 w-10">
+                    <td className="py-2 px-3">
+                      <div className="flex items-center gap-2">
+                        <Avatar className="h-8 w-8">
                           <AvatarImage src={employee.avatar} />
-                          <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-sm">
+                          <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs">
                             {employee.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="font-medium text-foreground">{employee.name}</p>
-                          <p className="text-sm text-muted-foreground">{employee.id}</p>
+                          <p className="font-medium text-foreground text-sm">{employee.name}</p>
+                          <p className="text-xs text-muted-foreground">{employee.id}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="py-4 px-4">
-                      <p className="text-foreground">{employee.role}</p>
+                    <td className="py-2 px-3">
+                      <p className="text-foreground text-sm">{employee.role}</p>
                     </td>
-                    <td className="py-4 px-4">
-                      <div className="flex items-center gap-2">
+                    <td className="py-2 px-3">
+                      <div className="flex items-center gap-1.5">
                         {getStatusDot(employee.status)}
-                        <span className="text-sm capitalize text-foreground">{employee.status}</span>
+                        <span className="text-xs capitalize text-foreground">{employee.status}</span>
                       </div>
                     </td>
-                    <td className="py-4 px-4">
-                      <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20">
+                    <td className="py-2 px-3">
+                      <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 text-xs">
                         {employee.kudosBalance.toLocaleString()}
                       </Badge>
                     </td>
-                    <td className="py-4 px-4">
-                      <p className="text-foreground font-medium">{employee.tasksCompleted}</p>
+                    <td className="py-2 px-3">
+                      <p className="text-foreground font-medium text-sm">{employee.tasksCompleted}</p>
                     </td>
-                    <td className="py-4 px-4">
+                    <td className="py-2 px-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
+                        <div className="w-20 h-1.5 bg-muted rounded-full overflow-hidden">
                           <div 
                             className={cn(
                               'h-full rounded-full',
@@ -154,7 +154,7 @@ export default function EmployeesPage() {
                             style={{ width: `${employee.attendanceRate}%` }}
                           />
                         </div>
-                        <span className="text-sm font-medium text-foreground">{employee.attendanceRate}%</span>
+                        <span className="text-xs font-medium text-foreground">{employee.attendanceRate}%</span>
                       </div>
                     </td>
                   </tr>

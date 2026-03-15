@@ -200,7 +200,7 @@ export function TeamPage({ taskChatId, onClearTaskChat }: TeamPageProps) {
           </div>
         </TabsContent>
 
-        <TabsContent value="chat" className="flex-1 flex flex-col min-h-0">
+        <TabsContent value="chat" className="flex-1 flex flex-col min-h-0 pb-4">
           {/* Task Context Banner */}
           {currentTaskChat && (
             <motion.div

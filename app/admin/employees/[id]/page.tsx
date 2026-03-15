@@ -1,13 +1,14 @@
 'use client'
 
-import { use } from 'react'
+import { use, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, Mail, Calendar, Flame, Clock, Sparkles, CheckCircle } from 'lucide-react'
+import { ArrowLeft, Mail, Calendar, Flame, Clock, Sparkles, CheckCircle, X } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet'
 import { adminEmployees, getEmployeeTasks, getEmployeeKudosHistory, getEmployeeAttendanceHistory } from '@/lib/adminMockData'
 import { cn } from '@/lib/utils'
 
@@ -61,9 +62,25 @@ function getAttendanceStatusColor(status: string) {
   }
 }
 
+function getStatusLabel(status: string) {
+  switch (status) {
+    case 'early':
+      return 'Early'
+    case 'on-time':
+      return 'On Time'
+    case 'late':
+      return 'Late'
+    case 'absent':
+      return 'Absent'
+    default:
+      return status
+  }
+}
+
 export default function EmployeeDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const router = useRouter()
+  const [selectedDay, setSelectedDay] = useState<string | null>(null)
   
   const employee = adminEmployees.find(e => e.id === id)
   
@@ -82,6 +99,8 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
   const tasks = getEmployeeTasks(id)
   const kudosHistory = getEmployeeKudosHistory(id)
   const attendanceHistory = getEmployeeAttendanceHistory(id)
+  
+  const selectedRecord = selectedDay ? attendanceHistory.find(r => r.date === selectedDay) : null
 
   return (
     <div className="px-4 py-4 md:px-6 space-y-4">
@@ -311,20 +330,24 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
                   const record = attendanceHistory.find(r => r.date === `2026-03-${day.toString().padStart(2, '0')}`)
                   const isWeekend = dayOfWeek === 0 || dayOfWeek === 6
                   const isFuture = day > 15
+                  const dateString = `2026-03-${day.toString().padStart(2, '0')}`
                   
                   return [
                     ...emptyCells,
-                    <div
+                    <button
                       key={day}
+                      onClick={() => record && !isWeekend && !isFuture && setSelectedDay(dateString)}
+                      disabled={!record || isWeekend || isFuture}
                       className={cn(
-                        'aspect-square rounded-lg flex flex-col items-center justify-center text-sm border border-border',
+                        'aspect-square rounded-lg flex flex-col items-center justify-center text-sm border border-border transition-all',
                         isWeekend && 'bg-muted/30',
-                        isFuture && 'opacity-40',
-                        record && !isWeekend && !isFuture && 'border-2',
+                        isFuture && 'opacity-40 cursor-not-allowed',
+                        record && !isWeekend && !isFuture && 'border-2 cursor-pointer hover:shadow-md',
                         record?.status === 'early' && 'border-emerald-500 bg-emerald-500/10',
                         record?.status === 'on-time' && 'border-green-500 bg-green-500/10',
                         record?.status === 'late' && 'border-amber-500 bg-amber-500/10',
-                        record?.status === 'absent' && 'border-red-500 bg-red-500/10'
+                        record?.status === 'absent' && 'border-red-500 bg-red-500/10',
+                        !record && !isWeekend && !isFuture && 'cursor-not-allowed opacity-50'
                       )}
                     >
                       <span className="font-medium text-foreground">{day}</span>
@@ -334,7 +357,7 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
                           getAttendanceStatusColor(record.status)
                         )} />
                       )}
-                    </div>
+                    </button>
                   ]
                 })}
               </div>
@@ -362,6 +385,136 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Attendance Day Detail Sheet */}
+      <Sheet open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
+        <SheetContent side="bottom" className="max-h-[80vh] overflow-y-auto rounded-t-2xl">
+          <SheetHeader className="flex flex-row items-center justify-between pb-4 border-b">
+            <div>
+              <SheetTitle className="text-base">Attendance Details</SheetTitle>
+              <SheetDescription className="sr-only">
+                View check-in, check-out times and daily attendance metrics
+              </SheetDescription>
+            </div>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-6 w-6"
+              onClick={() => setSelectedDay(null)}
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </SheetHeader>
+
+          {selectedRecord && (
+            <div className="space-y-4 pt-4">
+              {/* Date and Status */}
+              <div>
+                <p className="text-xs text-muted-foreground mb-1">Date</p>
+                <p className="text-sm font-semibold">
+                  {new Date(selectedRecord.date).toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </p>
+              </div>
+
+              {/* Status Badge */}
+              <div>
+                <p className="text-xs text-muted-foreground mb-2">Status</p>
+                <Badge className={cn(
+                  'text-sm',
+                  selectedRecord.status === 'early' && 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400',
+                  selectedRecord.status === 'on-time' && 'bg-green-500/20 text-green-600 dark:text-green-400',
+                  selectedRecord.status === 'late' && 'bg-amber-500/20 text-amber-600 dark:text-amber-400',
+                  selectedRecord.status === 'absent' && 'bg-red-500/20 text-red-600 dark:text-red-400'
+                )}>
+                  {getStatusLabel(selectedRecord.status)}
+                </Badge>
+              </div>
+
+              {/* Check In Time */}
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <div className="p-2 rounded-lg bg-emerald-500/10">
+                  <Clock className="w-4 h-4 text-emerald-500" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Check In</p>
+                  <p className="text-sm font-semibold">{selectedRecord.checkIn}</p>
+                </div>
+              </div>
+
+              {/* Check Out Time */}
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <div className="p-2 rounded-lg bg-red-500/10">
+                  <Clock className="w-4 h-4 text-red-500" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Check Out</p>
+                  <p className="text-sm font-semibold">{selectedRecord.checkOut}</p>
+                </div>
+              </div>
+
+              {/* Hours Worked */}
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <div className="p-2 rounded-lg bg-blue-500/10">
+                  <Clock className="w-4 h-4 text-blue-500" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Hours Worked</p>
+                  <p className="text-sm font-semibold">{selectedRecord.hoursWorked}h</p>
+                </div>
+              </div>
+
+              {/* Tasks Received */}
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <div className="p-2 rounded-lg bg-purple-500/10">
+                  <CheckCircle className="w-4 h-4 text-purple-500" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Tasks Received</p>
+                  <p className="text-sm font-semibold">{selectedRecord.tasksReceived}</p>
+                </div>
+              </div>
+
+              {/* Tasks Completed */}
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <div className="p-2 rounded-lg bg-emerald-500/10">
+                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Tasks Completed</p>
+                  <p className="text-sm font-semibold">{selectedRecord.tasksCompleted}</p>
+                </div>
+              </div>
+
+              {/* Kudos Earned */}
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-emerald-500/10">
+                <div className="p-2 rounded-lg bg-emerald-500/20">
+                  <Sparkles className="w-4 h-4 text-emerald-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-emerald-700 dark:text-emerald-400">Kudos Earned</p>
+                  <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">{selectedRecord.kudosEarned}</p>
+                </div>
+              </div>
+
+              {/* Kudos Redeemed */}
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-red-500/10">
+                <div className="p-2 rounded-lg bg-red-500/20">
+                  <Sparkles className="w-4 h-4 text-red-600" />
+                </div>
+                <div>
+                  <p className="text-xs text-red-700 dark:text-red-400">Kudos Redeemed</p>
+                  <p className="text-sm font-semibold text-red-600 dark:text-red-400">{selectedRecord.kudosRedeemed}</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </SheetContent>
+      </Sheet>
     </div>
   )
 }

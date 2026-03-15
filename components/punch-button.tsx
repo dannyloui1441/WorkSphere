@@ -42,11 +42,18 @@ export function PunchButton({ isPunchedIn, punchInTime }: PunchButtonProps) {
         )}
         <Power className="w-7 h-7 text-white relative z-10" />
       </motion.button>
-      <span className="mt-2 text-xs text-muted-foreground font-medium">
-        {isPunchedIn ? 'Punched In' : 'Tap to Punch In'}
-      </span>
+      <div className={cn(
+        'mt-2 px-3 py-0.5 rounded-full',
+        isPunchedIn ? 'bg-emerald-500/20 dark:bg-emerald-500/10' : 'bg-black/10 dark:bg-white/10'
+      )}>
+        <span className="text-xs text-muted-foreground font-medium">
+          {isPunchedIn ? 'Punched In' : 'Tap to Punch In'}
+        </span>
+      </div>
       {isPunchedIn && punchInTime && (
-        <span className="text-[10px] text-success font-medium">{punchInTime}</span>
+        <div className="mt-1 bg-black/10 dark:bg-white/10 rounded-full px-2 py-0.5">
+          <p className="text-[10px] text-white/90 font-medium">{punchInTime}</p>
+        </div>
       )}
     </div>
   )

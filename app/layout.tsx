@@ -55,11 +55,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen flex items-start justify-center">
-            <div className="w-full max-w-[430px] min-h-screen bg-background shadow-2xl relative">
-              {children}
-            </div>
-          </div>
+          {children}
         </ThemeProvider>
         <Analytics />
       </body>

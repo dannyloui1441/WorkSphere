@@ -69,7 +69,7 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
   
   if (!employee) {
     return (
-      <div className="p-8">
+      <div className="p-4">
         <p className="text-muted-foreground">Employee not found.</p>
         <Button variant="outline" onClick={() => router.back()} className="mt-4">
           <ArrowLeft className="w-4 h-4 mr-2" />

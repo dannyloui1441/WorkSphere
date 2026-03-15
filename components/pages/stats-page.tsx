@@ -56,12 +56,12 @@ export function StatsPage() {
       <div className="grid grid-cols-2 gap-3 mb-4">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
           <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-2">
+            <CardContent className="p-3">
+              <div className="flex items-center gap-2 mb-1">
                 <Clock className="w-4 h-4 text-primary" />
                 <span className="text-xs text-muted-foreground">Total Hours</span>
               </div>
-              <p className="text-2xl font-bold">38.5h</p>
+              <p className="text-xl font-bold">38.5h</p>
               <div className="flex items-center gap-1 text-xs text-emerald-600">
                 <TrendingUp className="w-3 h-3" />
                 <span>+5% vs last {period}</span>
@@ -71,12 +71,12 @@ export function StatsPage() {
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
           <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-2">
+            <CardContent className="p-3">
+              <div className="flex items-center gap-2 mb-1">
                 <Coins className="w-4 h-4 text-amber-500" />
                 <span className="text-xs text-muted-foreground">Coins Earned</span>
               </div>
-              <p className="text-2xl font-bold">325</p>
+              <p className="text-xl font-bold">325</p>
               <div className="flex items-center gap-1 text-xs text-red-500">
                 <TrendingDown className="w-3 h-3" />
                 <span>-3% vs last {period}</span>

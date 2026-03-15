@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { currentUser } from '@/lib/mockData'
-import { cn, updateCoins, addTransaction } from '@/lib/utils'
+import { cn, updateKudos, addTransaction } from '@/lib/utils'
 
 type PunchState = 'READY' | 'QR_ACTIVE' | 'SCANNED' | 'CONFIRMED' | 'EXPIRED'
 
@@ -93,7 +93,7 @@ export default function PunchPage() {
             punchInTime: punchTime,
             punchOutTime: null
           }))
-          updateCoins('earn', 10)
+          updateKudos('earn', 10)
           addTransaction({
             type: 'earned',
             description: 'On-time Punch In Bonus',

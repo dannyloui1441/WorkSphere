@@ -229,21 +229,21 @@ export function CalendarPage() {
                 </Badge>
               </SheetHeader>
 
-              <div className="space-y-4">
+              <div className="space-y-2">
                 {/* Check In / Out Times */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-muted">
-                    <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
-                      <LogIn className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-muted">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
+                      <LogIn className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Check In</p>
                       <p className="font-semibold">{selectedRecord.checkIn || '---'}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-muted">
-                    <div className="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
-                      <LogOut className="w-5 h-5 text-red-600 dark:text-red-400" />
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-muted">
+                    <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
+                      <LogOut className="w-4 h-4 text-red-600 dark:text-red-400" />
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Check Out</p>
@@ -253,9 +253,9 @@ export function CalendarPage() {
                 </div>
 
                 {/* Hours Worked */}
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-muted">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-muted">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center">
+                    <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">Hours Worked</p>
@@ -264,19 +264,19 @@ export function CalendarPage() {
                 </div>
 
                 {/* Tasks */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-muted">
-                    <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center">
-                      <ListTodo className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-muted">
+                    <div className="w-8 h-8 rounded-full bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center">
+                      <ListTodo className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Tasks Received</p>
                       <p className="font-semibold">{selectedRecord.tasksReceived}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-muted">
-                    <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center">
-                      <CheckCircle className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-muted">
+                    <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center">
+                      <CheckCircle className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Tasks Completed</p>
@@ -286,19 +286,19 @@ export function CalendarPage() {
                 </div>
 
                 {/* Coins */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-muted">
-                    <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
-                      <TrendingUp className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-muted">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
+                      <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Coins Earned</p>
                       <p className="font-semibold text-emerald-600 dark:text-emerald-400">+{selectedRecord.coinsEarned}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-muted">
-                    <div className="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
-                      <TrendingDown className="w-5 h-5 text-red-600 dark:text-red-400" />
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-muted">
+                    <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
+                      <TrendingDown className="w-4 h-4 text-red-600 dark:text-red-400" />
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Coins Redeemed</p>

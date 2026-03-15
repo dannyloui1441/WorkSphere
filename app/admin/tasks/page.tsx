@@ -205,7 +205,7 @@ export default function TasksPage() {
   const completedCount = tasks.filter(t => t.status === 'completed').length
 
   return (
-    <div className="px-4 py-4 md:px-6 space-y-4">
+    <div className="w-full min-w-0 px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
       <div className="mb-4">
         <h1 className="text-xl font-bold text-foreground">Tasks</h1>
@@ -213,20 +213,20 @@ export default function TasksPage() {
       </div>
 
       {/* Stats - 3 columns on mobile, same on desktop */}
-      <div className="grid grid-cols-3 gap-3">
-        <Card className="border-l-4 border-l-amber-500">
+      <div className="grid grid-cols-3 gap-3 w-full">
+        <Card className="border-l-4 border-l-amber-500 min-w-0 overflow-hidden">
           <CardContent className="p-3">
             <p className="text-xl font-bold text-foreground">{pendingCount}</p>
             <p className="text-xs text-muted-foreground">Pending</p>
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-blue-500">
+        <Card className="border-l-4 border-l-blue-500 min-w-0 overflow-hidden">
           <CardContent className="p-3">
             <p className="text-xl font-bold text-foreground">{inProgressCount}</p>
             <p className="text-xs text-muted-foreground">In Progress</p>
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-emerald-500">
+        <Card className="border-l-4 border-l-emerald-500 min-w-0 overflow-hidden">
           <CardContent className="p-3">
             <p className="text-xl font-bold text-foreground">{completedCount}</p>
             <p className="text-xs text-muted-foreground">Completed</p>
@@ -235,7 +235,7 @@ export default function TasksPage() {
       </div>
 
       {/* Create Task Form */}
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardHeader className="pb-2 pt-4 px-4">
           <CardTitle className="text-sm">Create New Task</CardTitle>
         </CardHeader>
@@ -397,7 +397,7 @@ export default function TasksPage() {
       </Card>
 
       {/* All Tasks List */}
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardHeader className="pb-2 pt-4 px-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <CardTitle className="text-sm">All Tasks</CardTitle>

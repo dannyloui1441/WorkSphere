@@ -73,7 +73,7 @@ export default function AdminDashboard() {
   const recentTasks = adminTasks.slice(0, 5)
 
   return (
-    <div className="px-4 py-4 md:px-6 space-y-4">
+    <div className="w-full min-w-0 px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
       <div className="mb-4">
         <h1 className="text-xl font-bold text-foreground">Dashboard</h1>
@@ -81,11 +81,11 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Cards - 2x2 on mobile, 4 columns on desktop */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
         {statCards.map((stat) => {
           const Icon = stat.icon
           return (
-            <Card key={stat.label} className={cn('border-l-4 min-w-0', stat.borderColor)}>
+            <Card key={stat.label} className={cn('border-l-4 min-w-0 overflow-hidden', stat.borderColor)}>
               <CardContent className="p-4">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0 flex-1">
@@ -103,9 +103,9 @@ export default function AdminDashboard() {
       </div>
 
       {/* Two Column Layout - stacked on mobile, side by side on desktop */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
         {/* Today's Attendance */}
-        <Card className="min-w-0">
+        <Card className="min-w-0 overflow-hidden">
           <CardHeader className="pb-2 pt-4 px-4">
             <CardTitle className="text-sm">Today&apos;s Attendance</CardTitle>
           </CardHeader>
@@ -141,7 +141,7 @@ export default function AdminDashboard() {
         </Card>
 
         {/* Task Overview */}
-        <Card className="min-w-0">
+        <Card className="min-w-0 overflow-hidden">
           <CardHeader className="pb-2 pt-4 px-4">
             <CardTitle className="text-sm">Task Overview</CardTitle>
           </CardHeader>

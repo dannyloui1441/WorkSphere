@@ -31,7 +31,7 @@ export default function AttendancePage() {
   })
 
   return (
-    <div className="px-4 py-4 md:px-6 space-y-4">
+    <div className="w-full min-w-0 px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
       <div className="mb-4">
         <h1 className="text-xl font-bold text-foreground">Attendance</h1>
@@ -39,9 +39,9 @@ export default function AttendancePage() {
       </div>
 
       {/* Attendance Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 w-full min-w-0">
         {todayAttendance.map((record) => (
-          <Card key={record.employeeId} className="overflow-hidden">
+          <Card key={record.employeeId} className="overflow-hidden min-w-0">
             <CardContent className="p-0">
               {/* Status Header */}
               <div className={cn(
@@ -112,7 +112,7 @@ export default function AttendancePage() {
       </div>
 
       {/* Summary */}
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardContent className="p-4">
           <div className="grid grid-cols-4 gap-4 text-center">
             <div>

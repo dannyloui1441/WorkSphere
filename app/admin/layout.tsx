@@ -126,7 +126,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   )
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="flex h-screen w-screen bg-gray-50 dark:bg-gray-950 overflow-hidden">
       {/* Mobile Header */}
       <header className="fixed top-0 left-0 right-0 h-14 bg-card border-b border-border flex items-center justify-between px-4 z-40 md:hidden">
         {/* Logo */}
@@ -183,7 +183,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto pt-14 md:pt-0 md:ml-56">
+      <main className="flex-1 min-w-0 overflow-y-auto pt-14 md:pt-0 md:ml-56 w-full">
         {children}
       </main>
     </div>

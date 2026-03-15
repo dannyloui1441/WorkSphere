@@ -168,7 +168,7 @@ export function PingsPage({ onKudosUpdate, onOpenTaskChat }: PingsPageProps) {
           )}
           onClick={() => toggleExpand(task.id)}
         >
-          <CardContent className="p-4">
+          <CardContent className="p-3">
             {/* Collapsed Header - Always visible */}
             <div className="flex items-start gap-3">
               <div className={cn(

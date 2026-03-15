@@ -1,143 +1,243 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence, PanInfo } from 'framer-motion'
-import { Navigation, type TabType } from '@/components/navigation'
-import { PunchButton } from '@/components/punch-button'
-import { HomePage } from '@/components/pages/home-page'
-import { PingsPage } from '@/components/pages/pings-page'
-import { CoinsPage } from '@/components/pages/coins-page'
-import { CalendarPage } from '@/components/pages/calendar-page'
-import { StatsPage } from '@/components/pages/stats-page'
-import { TeamPage } from '@/components/pages/team-page'
-import { getCoinsData, type CoinsData, initialCoinsData } from '@/lib/utils'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
+import { User, Shield } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
 
-const tabOrder: TabType[] = ['calendar', 'team', 'home', 'tasks', 'coins']
+type RoleType = 'employee' | 'admin' | null
 
-export default function Home() {
-  const [activeTab, setActiveTab] = useState<TabType>('home')
-  const [isPunchedIn, setIsPunchedIn] = useState(false)
-  const [punchInTime, setPunchInTime] = useState<string | null>(null)
-  const [direction, setDirection] = useState(0)
-  const [coinsData, setCoinsData] = useState<CoinsData>(initialCoinsData)
-  const [openTaskChatId, setOpenTaskChatId] = useState<string | null>(null)
+const mockCredentials = {
+  employee: { email: 'emp@worksphere.com', password: '1234' },
+  admin: { email: 'admin@worksphere.com', password: '1234' }
+}
 
-  const refreshCoinsData = useCallback(() => {
-    setCoinsData(getCoinsData())
-  }, [])
+export default function LoginPage() {
+  const router = useRouter()
+  const [expandedCard, setExpandedCard] = useState<RoleType>(null)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState(false)
+  const [shakeKey, setShakeKey] = useState(0)
 
-  useEffect(() => {
-    // Read punch state from localStorage
-    const stored = localStorage.getItem('worksphere_punch')
-    if (stored) {
-      try {
-        const data = JSON.parse(stored)
-        setIsPunchedIn(data.isPunchedIn)
-        setPunchInTime(data.punchInTime)
-      } catch {
-        // Invalid data, ignore
-      }
-    }
-    // Load coins data
-    refreshCoinsData()
-  }, [refreshCoinsData])
-
-  const handleTabChange = (tab: TabType) => {
-    const currentIndex = tabOrder.indexOf(activeTab)
-    const newIndex = tabOrder.indexOf(tab)
-    setDirection(newIndex > currentIndex ? 1 : -1)
-    setActiveTab(tab)
-    // Clear task chat id when manually changing tabs
-    if (tab !== 'team') {
-      setOpenTaskChatId(null)
-    }
+  const handleCardClick = (role: RoleType) => {
+    if (expandedCard === role) return
+    setExpandedCard(role)
+    setEmail('')
+    setPassword('')
+    setError(false)
   }
 
-  const handleOpenTaskChat = useCallback((taskId: string) => {
-    setOpenTaskChatId(taskId)
-    const currentIndex = tabOrder.indexOf(activeTab)
-    const newIndex = tabOrder.indexOf('team')
-    setDirection(newIndex > currentIndex ? 1 : -1)
-    setActiveTab('team')
-  }, [activeTab])
-
-  const handleSwipe = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    const threshold = 50
-    const currentIndex = tabOrder.indexOf(activeTab)
+  const handleLogin = (role: RoleType) => {
+    if (!role) return
     
-    if (info.offset.x < -threshold && currentIndex < tabOrder.length - 1) {
-      setDirection(1)
-      setActiveTab(tabOrder[currentIndex + 1])
-    } else if (info.offset.x > threshold && currentIndex > 0) {
-      setDirection(-1)
-      setActiveTab(tabOrder[currentIndex - 1])
+    const creds = mockCredentials[role]
+    if (email === creds.email && password === creds.password) {
+      router.push(role === 'employee' ? '/employee' : '/admin')
+    } else {
+      setError(true)
+      setShakeKey(prev => prev + 1)
     }
   }
 
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0
-    }),
-    center: {
-      x: 0,
-      opacity: 1
-    },
-    exit: (direction: number) => ({
-      x: direction < 0 ? 300 : -300,
-      opacity: 0
-    })
-  }
-
-  const renderPage = () => {
-    switch (activeTab) {
-      case 'home':
-        return <HomePage isPunchedIn={isPunchedIn} punchInTime={punchInTime} onNavigate={handleTabChange} coinsData={coinsData} />
-      case 'tasks':
-        return <PingsPage onCoinsUpdate={refreshCoinsData} onOpenTaskChat={handleOpenTaskChat} />
-      case 'coins':
-        return <CoinsPage coinsData={coinsData} onCoinsUpdate={refreshCoinsData} />
-      case 'calendar':
-        return <CalendarPage />
-      case 'team':
-        return <TeamPage taskChatId={openTaskChatId} onClearTaskChat={() => setOpenTaskChatId(null)} />
-      default:
-        return <HomePage isPunchedIn={isPunchedIn} punchInTime={punchInTime} onNavigate={handleTabChange} coinsData={coinsData} />
-    }
+  const shakeAnimation = {
+    x: [0, -10, 10, -10, 10, 0],
+    transition: { duration: 0.4 }
   }
 
   return (
-    <main className="min-h-screen bg-background overflow-hidden">
-      <motion.div
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.2}
-        onDragEnd={handleSwipe}
-        className="min-h-screen"
-      >
-        <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
-            key={activeTab}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: 'spring', stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 }
-            }}
-          >
-            {renderPage()}
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
+    <main className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+      {/* Logo and Title */}
+      <div className="flex flex-col items-center mb-8">
+        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-4 shadow-lg">
+          <span className="text-white font-bold text-2xl">WS</span>
+        </div>
+        <h1 className="text-2xl font-bold text-foreground">WorkSphere</h1>
+        <p className="text-sm text-muted-foreground">Workforce. Rewarded.</p>
+      </div>
 
-      {activeTab === 'home' && (
-        <PunchButton isPunchedIn={isPunchedIn} punchInTime={punchInTime} />
-      )}
-      
-      <Navigation activeTab={activeTab} onTabChange={handleTabChange} />
+      {/* Role Selection Cards */}
+      <div className="w-full max-w-md flex gap-4">
+        {/* Employee Card */}
+        <motion.div
+          className="flex-1"
+          animate={expandedCard === 'employee' && error ? shakeAnimation : {}}
+          key={`employee-${shakeKey}`}
+        >
+          <Card
+            className={`cursor-pointer transition-all duration-300 border-2 ${
+              expandedCard === 'employee'
+                ? 'border-indigo-500'
+                : 'border-transparent hover:border-indigo-500/50'
+            }`}
+            onClick={() => handleCardClick('employee')}
+          >
+            <CardContent className="p-4">
+              <div className="flex flex-col items-center">
+                <div className="p-3 rounded-full bg-indigo-500/10 mb-3">
+                  <User className="w-6 h-6 text-indigo-500" />
+                </div>
+                <h2 className="font-semibold text-foreground">Employee</h2>
+              </div>
+
+              <AnimatePresence>
+                {expandedCard === 'employee' && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-4 space-y-3">
+                      <div>
+                        <Label htmlFor="emp-email" className="text-xs text-muted-foreground">Email</Label>
+                        <Input
+                          id="emp-email"
+                          type="email"
+                          placeholder="emp@worksphere.com"
+                          value={email}
+                          onChange={(e) => {
+                            setEmail(e.target.value)
+                            setError(false)
+                          }}
+                          onClick={(e) => e.stopPropagation()}
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="emp-password" className="text-xs text-muted-foreground">Password</Label>
+                        <Input
+                          id="emp-password"
+                          type="password"
+                          placeholder="Enter password"
+                          value={password}
+                          onChange={(e) => {
+                            setPassword(e.target.value)
+                            setError(false)
+                          }}
+                          onClick={(e) => e.stopPropagation()}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.stopPropagation()
+                              handleLogin('employee')
+                            }
+                          }}
+                          className="mt-1"
+                        />
+                      </div>
+                      {error && (
+                        <p className="text-xs text-red-500">Invalid credentials</p>
+                      )}
+                      <Button
+                        className="w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleLogin('employee')
+                        }}
+                      >
+                        Login
+                      </Button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Admin Card */}
+        <motion.div
+          className="flex-1"
+          animate={expandedCard === 'admin' && error ? shakeAnimation : {}}
+          key={`admin-${shakeKey}`}
+        >
+          <Card
+            className={`cursor-pointer transition-all duration-300 border-2 ${
+              expandedCard === 'admin'
+                ? 'border-purple-500'
+                : 'border-transparent hover:border-purple-500/50'
+            }`}
+            onClick={() => handleCardClick('admin')}
+          >
+            <CardContent className="p-4">
+              <div className="flex flex-col items-center">
+                <div className="p-3 rounded-full bg-purple-500/10 mb-3">
+                  <Shield className="w-6 h-6 text-purple-500" />
+                </div>
+                <h2 className="font-semibold text-foreground">Admin</h2>
+              </div>
+
+              <AnimatePresence>
+                {expandedCard === 'admin' && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-4 space-y-3">
+                      <div>
+                        <Label htmlFor="admin-email" className="text-xs text-muted-foreground">Email</Label>
+                        <Input
+                          id="admin-email"
+                          type="email"
+                          placeholder="admin@worksphere.com"
+                          value={email}
+                          onChange={(e) => {
+                            setEmail(e.target.value)
+                            setError(false)
+                          }}
+                          onClick={(e) => e.stopPropagation()}
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="admin-password" className="text-xs text-muted-foreground">Password</Label>
+                        <Input
+                          id="admin-password"
+                          type="password"
+                          placeholder="Enter password"
+                          value={password}
+                          onChange={(e) => {
+                            setPassword(e.target.value)
+                            setError(false)
+                          }}
+                          onClick={(e) => e.stopPropagation()}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.stopPropagation()
+                              handleLogin('admin')
+                            }
+                          }}
+                          className="mt-1"
+                        />
+                      </div>
+                      {error && (
+                        <p className="text-xs text-red-500">Invalid credentials</p>
+                      )}
+                      <Button
+                        className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleLogin('admin')
+                        }}
+                      >
+                        Login
+                      </Button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
     </main>
   )
 }

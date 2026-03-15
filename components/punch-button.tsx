@@ -16,7 +16,7 @@ export function PunchButton({ isPunchedIn, punchInTime }: PunchButtonProps) {
   return (
     <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center">
       <motion.button
-        onClick={() => router.push('/punch')}
+        onClick={() => router.push('/employee/punch')}
         className={cn(
           'relative w-16 h-16 rounded-full flex items-center justify-center shadow-lg',
           isPunchedIn

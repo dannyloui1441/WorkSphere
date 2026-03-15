@@ -10,7 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { currentUser } from '@/lib/mockData'
-import { cn, updateCoins, addTransaction } from '@/lib/utils'
+import { cn, updateKudos, addTransaction } from '@/lib/utils'
 
 type PunchState = 'READY' | 'QR_ACTIVE' | 'SCANNED' | 'CONFIRMED' | 'EXPIRED'
 
@@ -87,13 +87,13 @@ export default function PunchPage() {
             punchOutTime: punchTime
           }))
         } else {
-          // Punching IN - earn 10 coins for on-time
+          // Punching IN - earn 10 kudos for on-time
           localStorage.setItem('worksphere_punch', JSON.stringify({
             isPunchedIn: true,
             punchInTime: punchTime,
             punchOutTime: null
           }))
-          updateCoins('earn', 10)
+          updateKudos('earn', 10)
           addTransaction({
             type: 'earned',
             description: 'On-time Punch In Bonus',
@@ -101,7 +101,7 @@ export default function PunchPage() {
             date: format(new Date(), 'yyyy-MM-dd')
           })
         }
-        router.push('/')
+        router.push('/employee')
       }, 1500)
       return () => clearTimeout(timer)
     }
@@ -130,7 +130,7 @@ export default function PunchPage() {
     <div className="min-h-screen bg-background p-4">
       {/* Header */}
       <div className="flex items-center gap-4 mb-8">
-        <Button variant="ghost" size="icon" onClick={() => router.push('/')}>
+        <Button variant="ghost" size="icon" onClick={() => router.push('/employee')}>
           <ArrowLeft className="w-5 h-5" />
         </Button>
         <h1 className="text-lg font-semibold">{isPunchingOut ? 'Punch Out' : 'Punch In'}</h1>

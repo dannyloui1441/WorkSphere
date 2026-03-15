@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { format } from 'date-fns'
-import { Coins, ListTodo, Users, ChevronRight, Clock, Moon, Sun, LogOut, Award, BarChart3, Settings, History } from 'lucide-react'
+import { Sparkles, ListTodo, Users, ChevronRight, Clock, Moon, Sun, LogOut, Award, BarChart3, Settings, History } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -13,17 +13,17 @@ import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
 import { currentUser, tasks } from '@/lib/mockData'
-import { cn, type CoinsData } from '@/lib/utils'
+import { cn, type KudosData } from '@/lib/utils'
 import type { TabType } from '@/components/navigation'
 
 interface HomePageProps {
   isPunchedIn: boolean
   punchInTime: string | null
   onNavigate: (tab: TabType) => void
-  coinsData: CoinsData
+  kudosData: KudosData
 }
 
-export function HomePage({ isPunchedIn, punchInTime, onNavigate, coinsData }: HomePageProps) {
+export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: HomePageProps) {
   const [currentTime, setCurrentTime] = useState(new Date())
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -83,7 +83,7 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, coinsData }: Ho
                     <p className="text-xs text-muted-foreground">Total Hours</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-bold text-amber-500">{coinsData.lifetimeEarned}</p>
+                    <p className="text-lg font-bold text-amber-500">{kudosData.lifetimeEarned}</p>
                     <p className="text-xs text-muted-foreground">Total Earned</p>
                   </div>
                 </div>
@@ -161,17 +161,17 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, coinsData }: Ho
         <motion.div whileTap={{ scale: 0.98 }}>
           <Card 
             className="bg-gradient-to-br from-amber-500/10 to-yellow-500/10 border-amber-200/50 dark:border-amber-800/50 cursor-pointer hover:shadow-md transition-shadow"
-            onClick={() => onNavigate('coins')}
+            onClick={() => onNavigate('kudos')}
           >
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
                 <div className="p-2 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-500">
-                  <Coins className="w-4 h-4 text-white" />
+                  <Sparkles className="w-4 h-4 text-white" />
                 </div>
                 <ChevronRight className="w-4 h-4 text-muted-foreground" />
               </div>
-              <p className="text-2xl font-bold">{coinsData.balance.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Coins Balance</p>
+              <p className="text-2xl font-bold">{kudosData.balance.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">Kudos Balance</p>
               <p className="text-xs text-emerald-600 font-medium mt-1">+125 this week</p>
             </CardContent>
           </Card>
@@ -273,7 +273,7 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, coinsData }: Ho
                         {task.status}
                       </Badge>
                       <div className="flex items-center gap-1 text-amber-500">
-                        <Coins className="w-3 h-3" />
+                        <Sparkles className="w-3 h-3" />
                         <span className="text-xs font-medium">{task.coins}</span>
                       </div>
                     </div>

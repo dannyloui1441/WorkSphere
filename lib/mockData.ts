@@ -268,7 +268,7 @@ export const rewards: Reward[] = [
   { id: 'RWD014', name: 'Travel Voucher', description: '$100 travel voucher', cost: 1500, category: 'Travel', icon: 'Plane' }
 ]
 
-export const initialCoinsData = {
+export const initialKudosData = {
   balance: 3250,
   lifetimeEarned: 4450,
   thisMonthEarned: 325,

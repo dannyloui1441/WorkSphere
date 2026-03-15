@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { format } from 'date-fns'
-import { AlertTriangle, Clock, Coins, User, Check, ChevronDown, Users, MessageCircle, Filter } from 'lucide-react'
+import { AlertTriangle, Clock, Sparkles, User, Check, ChevronDown, Users, MessageCircle, Filter } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -12,14 +12,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { tasks as initialTasks, teamMembers, type Task, type TaskStatus } from '@/lib/mockData'
-import { cn, updateCoins, addTransaction } from '@/lib/utils'
+import { cn, updateKudos, addTransaction } from '@/lib/utils'
 
 interface PingsPageProps {
-  onCoinsUpdate: () => void
+  onKudosUpdate: () => void
   onOpenTaskChat?: (taskId: string) => void
 }
 
-export function PingsPage({ onCoinsUpdate, onOpenTaskChat }: PingsPageProps) {
+export function PingsPage({ onKudosUpdate, onOpenTaskChat }: PingsPageProps) {
   const [tasks, setTasks] = useState<Task[]>(initialTasks)
   const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null)
   const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'acknowledged' | 'team'>('all')
@@ -60,7 +60,7 @@ export function PingsPage({ onCoinsUpdate, onOpenTaskChat }: PingsPageProps) {
     }))
 
     if (action === 'complete') {
-      updateCoins('earn', task.coins)
+      updateKudos('earn', task.coins)
       addTransaction({
         type: 'earned',
         description: `Task Completed: ${task.title}`,
@@ -68,7 +68,7 @@ export function PingsPage({ onCoinsUpdate, onOpenTaskChat }: PingsPageProps) {
         date: format(new Date(), 'yyyy-MM-dd'),
         taskId: task.id
       })
-      onCoinsUpdate()
+      onKudosUpdate()
     }
 
     setConfirmDialog({ open: false, task: null, action: null })
@@ -154,7 +154,7 @@ export function PingsPage({ onCoinsUpdate, onOpenTaskChat }: PingsPageProps) {
                       <span>{task.dueDate} {task.dueTime}</span>
                     </div>
                     <div className="flex items-center gap-1 text-amber-500">
-                      <Coins className="w-3 h-3" />
+                      <Sparkles className="w-3 h-3" />
                       <span className="font-semibold">{task.coins}</span>
                     </div>
                   </div>
@@ -319,7 +319,7 @@ export function PingsPage({ onCoinsUpdate, onOpenTaskChat }: PingsPageProps) {
             <DialogDescription>
               {confirmDialog.action === 'acknowledge' 
                 ? 'This will mark the task as acknowledged and you will be responsible for completing it.'
-                : `This will mark the task as complete and you will earn ${confirmDialog.task?.coins} coins.`
+                : `This will mark the task as complete and you will earn ${confirmDialog.task?.coins} Kudos.`
               }
             </DialogDescription>
           </DialogHeader>

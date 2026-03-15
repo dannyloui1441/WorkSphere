@@ -1,36 +1,36 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { initialCoinsData, type Transaction } from './mockData'
+import { initialKudosData, type Transaction } from './mockData'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export interface CoinsData {
+export interface KudosData {
   balance: number
   lifetimeEarned: number
   thisMonthEarned: number
   thisMonthSpent: number
 }
 
-export { initialCoinsData } from './mockData'
+export { initialKudosData } from './mockData'
 
-export function getCoinsData(): CoinsData {
-  if (typeof window === 'undefined') return initialCoinsData
+export function getKudosData(): KudosData {
+  if (typeof window === 'undefined') return initialKudosData
   const stored = localStorage.getItem('worksphere_coins')
   if (stored) {
     try {
       return JSON.parse(stored)
     } catch {
-      return initialCoinsData
+      return initialKudosData
     }
   }
-  return initialCoinsData
+  return initialKudosData
 }
 
-export function updateCoins(type: 'earn' | 'spend', amount: number): CoinsData {
-  const current = getCoinsData()
-  const updated: CoinsData = {
+export function updateKudos(type: 'earn' | 'spend', amount: number): KudosData {
+  const current = getKudosData()
+  const updated: KudosData = {
     ...current,
     balance: type === 'earn' ? current.balance + amount : current.balance - amount,
     lifetimeEarned: type === 'earn' ? current.lifetimeEarned + amount : current.lifetimeEarned,

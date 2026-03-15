@@ -31,37 +31,37 @@ export default function AttendancePage() {
   })
 
   return (
-    <div className="p-8 space-y-8">
+    <div className="px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Attendance</h1>
-        <p className="text-muted-foreground">{today}</p>
+      <div className="mb-4">
+        <h1 className="text-xl font-bold text-foreground">Attendance</h1>
+        <p className="text-xs text-muted-foreground">{today}</p>
       </div>
 
       {/* Attendance Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {todayAttendance.map((record) => (
           <Card key={record.employeeId} className="overflow-hidden">
             <CardContent className="p-0">
               {/* Status Header */}
               <div className={cn(
-                'px-6 py-3',
+                'px-4 py-2',
                 record.status === 'early' && 'bg-emerald-500/10',
                 record.status === 'on-time' && 'bg-green-500/10',
                 record.status === 'late' && 'bg-amber-500/10',
                 record.status === 'absent' && 'bg-red-500/10'
               )}>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Avatar className="h-12 w-12 border-2 border-background">
+                  <div className="flex items-center gap-2">
+                    <Avatar className="h-8 w-8 border-2 border-background">
                       <AvatarImage src={record.avatar} />
-                      <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-semibold">
+                      <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-xs font-semibold">
                         {record.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-semibold text-foreground">{record.name}</p>
-                      <p className="text-sm text-muted-foreground">{record.role}</p>
+                      <p className="font-semibold text-foreground text-sm">{record.name}</p>
+                      <p className="text-xs text-muted-foreground">{record.role}</p>
                     </div>
                   </div>
                   {getStatusBadge(record.status)}
@@ -69,38 +69,38 @@ export default function AttendancePage() {
               </div>
 
               {/* Details */}
-              <div className="p-6 space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 space-y-3">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide">Check In</p>
-                    <p className="text-lg font-semibold text-foreground">{record.checkIn || '—'}</p>
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Check In</p>
+                    <p className="text-sm font-semibold text-foreground">{record.checkIn || '—'}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide">Check Out</p>
-                    <p className="text-lg font-semibold text-foreground">{record.checkOut || '—'}</p>
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Check Out</p>
+                    <p className="text-sm font-semibold text-foreground">{record.checkOut || '—'}</p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">
+                <div className="grid grid-cols-2 gap-3 pt-3 border-t border-border">
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide">Hours Today</p>
-                    <p className="text-lg font-semibold text-foreground">
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Hours Today</p>
+                    <p className="text-sm font-semibold text-foreground">
                       {record.hoursWorked > 0 ? `${record.hoursWorked.toFixed(1)}h` : '—'}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide">Week Streak</p>
-                    <div className="flex items-center gap-1.5">
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Week Streak</p>
+                    <div className="flex items-center gap-1">
                       {record.weekStreak > 0 ? (
                         <>
                           <Flame className={cn(
-                            'w-5 h-5',
+                            'w-4 h-4',
                             record.weekStreak >= 7 ? 'text-orange-500' : 'text-amber-500'
                           )} />
-                          <span className="text-lg font-semibold text-foreground">{record.weekStreak} days</span>
+                          <span className="text-sm font-semibold text-foreground">{record.weekStreak} days</span>
                         </>
                       ) : (
-                        <span className="text-lg font-semibold text-muted-foreground">—</span>
+                        <span className="text-sm font-semibold text-muted-foreground">—</span>
                       )}
                     </div>
                   </div>
@@ -113,31 +113,31 @@ export default function AttendancePage() {
 
       {/* Summary */}
       <Card>
-        <CardContent className="p-6">
-          <div className="grid grid-cols-4 gap-6 text-center">
+        <CardContent className="p-4">
+          <div className="grid grid-cols-4 gap-4 text-center">
             <div>
-              <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
+              <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
                 {todayAttendance.filter(r => r.status === 'early' || r.status === 'on-time').length}
               </p>
-              <p className="text-sm text-muted-foreground">Checked In</p>
+              <p className="text-xs text-muted-foreground">Checked In</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
+              <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
                 {todayAttendance.filter(r => r.status === 'early').length}
               </p>
-              <p className="text-sm text-muted-foreground">Early</p>
+              <p className="text-xs text-muted-foreground">Early</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-amber-600 dark:text-amber-400">
+              <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">
                 {todayAttendance.filter(r => r.status === 'late').length}
               </p>
-              <p className="text-sm text-muted-foreground">Late</p>
+              <p className="text-xs text-muted-foreground">Late</p>
             </div>
             <div>
-              <p className="text-3xl font-bold text-red-600 dark:text-red-400">
+              <p className="text-2xl font-bold text-red-600 dark:text-red-400">
                 {todayAttendance.filter(r => r.status === 'absent').length}
               </p>
-              <p className="text-sm text-muted-foreground">Absent</p>
+              <p className="text-xs text-muted-foreground">Absent</p>
             </div>
           </div>
         </CardContent>

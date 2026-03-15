@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { format } from 'date-fns'
-import { Sparkles, ListTodo, Users, ChevronRight, Clock, Moon, Sun, LogOut, Award, BarChart3, Settings, History } from 'lucide-react'
+import { Sparkles, ListTodo, Users, ChevronRight, Clock, Moon, Sun, LogOut, Award, BarChart3, Settings, History, Bell } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -16,6 +16,16 @@ import { currentUser, tasks } from '@/lib/mockData'
 import { cn, type KudosData } from '@/lib/utils'
 import type { TabType } from '@/components/navigation'
 
+interface Announcement {
+  id: string
+  title: string
+  message: string
+  priority: 'high' | 'medium' | 'low'
+  targetAudience: string
+  status: 'draft' | 'published' | 'scheduled'
+  createdAt: string
+}
+
 interface HomePageProps {
   isPunchedIn: boolean
   punchInTime: string | null
@@ -27,11 +37,29 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
   const [currentTime, setCurrentTime] = useState(new Date())
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
 
   useEffect(() => {
     setMounted(true)
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(timer)
+  }, [])
+
+  // Load published announcements from localStorage
+  useEffect(() => {
+    try {
+      const storedAnnouncements = localStorage.getItem('admin_announcements')
+      if (storedAnnouncements) {
+        const parsed: Announcement[] = JSON.parse(storedAnnouncements)
+        const published = parsed
+          .filter(a => a.status === 'published')
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+          .slice(0, 3)
+        setAnnouncements(published)
+      }
+    } catch (error) {
+      console.error('Error loading announcements:', error)
+    }
   }, [])
 
   const activeTasks = tasks.filter(t => t.status !== 'completed')
@@ -217,6 +245,50 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
           </CardContent>
         </Card>
       </motion.div>
+
+      {/* Announcements Section */}
+      {announcements.length > 0 && (
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <Bell className="w-4 h-4 text-primary" />
+            <h2 className="font-semibold">Announcements</h2>
+          </div>
+          <div className="space-y-2">
+            {announcements.map((announcement) => (
+              <Card 
+                key={announcement.id}
+                className={cn(
+                  'overflow-hidden',
+                  announcement.priority === 'high' && 'border-l-4 border-l-red-500',
+                  announcement.priority === 'medium' && 'border-l-4 border-l-blue-500',
+                  announcement.priority === 'low' && 'border-l-4 border-l-gray-400'
+                )}
+              >
+                <CardContent className="p-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <p className="font-semibold text-sm truncate">{announcement.title}</p>
+                        {announcement.priority === 'high' && (
+                          <Badge variant="destructive" className="text-[10px] px-1.5 py-0 h-4">
+                            Important
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground truncate overflow-hidden text-ellipsis whitespace-nowrap">
+                        {announcement.message}
+                      </p>
+                      <p className="text-[10px] text-muted-foreground mt-1">
+                        {announcement.targetAudience} &bull; {new Date(announcement.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Recent Tasks */}
       <div>

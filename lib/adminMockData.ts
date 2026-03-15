@@ -66,7 +66,7 @@ export const adminEmployees: AdminEmployee[] = [
     email: 'kraman@worksphere.com', 
     joinDate: 'Jan 15, 2024', 
     status: 'online', 
-    kudosBalance: 3250, 
+    kudosBalance: 320, 
     tasksCompleted: 24, 
     attendanceRate: 94, 
     streak: 8,
@@ -80,7 +80,7 @@ export const adminEmployees: AdminEmployee[] = [
     email: 'daniel@worksphere.com', 
     joinDate: 'Mar 3, 2024', 
     status: 'online', 
-    kudosBalance: 2780, 
+    kudosBalance: 245, 
     tasksCompleted: 18, 
     attendanceRate: 89, 
     streak: 3,
@@ -94,7 +94,7 @@ export const adminEmployees: AdminEmployee[] = [
     email: 'benito@worksphere.com', 
     joinDate: 'Feb 10, 2024', 
     status: 'away', 
-    kudosBalance: 1950, 
+    kudosBalance: 180, 
     tasksCompleted: 21, 
     attendanceRate: 82, 
     streak: 0,
@@ -108,7 +108,7 @@ export const adminEmployees: AdminEmployee[] = [
     email: 'swithin@worksphere.com', 
     joinDate: 'Apr 22, 2024', 
     status: 'offline', 
-    kudosBalance: 2100, 
+    kudosBalance: 195, 
     tasksCompleted: 15, 
     attendanceRate: 78, 
     streak: 0,
@@ -122,7 +122,7 @@ export const adminEmployees: AdminEmployee[] = [
     email: 'john@worksphere.com', 
     joinDate: 'Jan 2, 2024', 
     status: 'online', 
-    kudosBalance: 4200, 
+    kudosBalance: 410, 
     tasksCompleted: 31, 
     attendanceRate: 97, 
     streak: 12,
@@ -197,7 +197,7 @@ export const adminTasks: AdminTask[] = [
     assignedToId: 'EMP001',
     status: 'in-progress', 
     dueDate: 'Today',
-    kudos: 150,
+    kudos: 75,
     priority: 'high'
   },
   { 
@@ -207,7 +207,7 @@ export const adminTasks: AdminTask[] = [
     assignedToId: 'EMP002',
     status: 'pending', 
     dueDate: 'Tomorrow',
-    kudos: 100,
+    kudos: 50,
     priority: 'medium'
   },
   { 
@@ -217,7 +217,7 @@ export const adminTasks: AdminTask[] = [
     assignedToId: 'EMP003',
     status: 'completed', 
     dueDate: 'Yesterday',
-    kudos: 125,
+    kudos: 65,
     priority: 'high'
   },
   { 
@@ -227,7 +227,7 @@ export const adminTasks: AdminTask[] = [
     assignedToId: 'EMP004',
     status: 'pending', 
     dueDate: 'Friday',
-    kudos: 75,
+    kudos: 40,
     priority: 'medium'
   },
   { 
@@ -237,7 +237,7 @@ export const adminTasks: AdminTask[] = [
     assignedToId: 'EMP005',
     status: 'in-progress', 
     dueDate: 'Today',
-    kudos: 100,
+    kudos: 50,
     priority: 'high'
   },
   { 
@@ -247,7 +247,7 @@ export const adminTasks: AdminTask[] = [
     assignedToId: 'EMP001',
     status: 'pending', 
     dueDate: 'Today',
-    kudos: 50,
+    kudos: 25,
     priority: 'low'
   },
   { 
@@ -257,7 +257,7 @@ export const adminTasks: AdminTask[] = [
     assignedToId: 'EMP002',
     status: 'completed', 
     dueDate: 'Yesterday',
-    kudos: 80,
+    kudos: 40,
     priority: 'medium'
   },
   { 
@@ -267,7 +267,7 @@ export const adminTasks: AdminTask[] = [
     assignedToId: 'EMP003',
     status: 'in-progress', 
     dueDate: 'Tomorrow',
-    kudos: 200,
+    kudos: 75,
     priority: 'high'
   },
 ]

@@ -89,29 +89,29 @@ export function CoinsPage({ kudosData, onKudosUpdate }: CoinsPageProps) {
       <Card className="bg-gradient-to-br from-amber-500 to-yellow-500 border-0 mb-6 text-white overflow-hidden relative">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
-        <CardContent className="p-6 relative">
-          <div className="flex items-center gap-2 mb-2">
-            <Sparkles className="w-6 h-6" />
+        <CardContent className="p-3 relative">
+          <div className="flex items-center gap-2 mb-1">
+            <Sparkles className="w-5 h-5" />
             <span className="text-sm font-medium opacity-90">Current Balance</span>
           </div>
-          <p className="text-4xl font-bold mb-4">{kudosData.balance.toLocaleString()}</p>
+          <p className="text-3xl font-bold mb-2">{kudosData.balance.toLocaleString()}</p>
           
-          <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/20">
+          <div className="grid grid-cols-3 gap-3 pt-3 border-t border-white/20">
             <div>
-              <p className="text-2xl font-bold">{kudosData.lifetimeEarned.toLocaleString()}</p>
+              <p className="text-xl font-bold">{kudosData.lifetimeEarned.toLocaleString()}</p>
               <p className="text-xs opacity-80">Lifetime Earned</p>
             </div>
             <div>
               <div className="flex items-center gap-1">
-                <TrendingUp className="w-4 h-4" />
-                <p className="text-lg font-bold">+{kudosData.thisMonthEarned}</p>
+                <TrendingUp className="w-3 h-3" />
+                <p className="text-base font-bold">+{kudosData.thisMonthEarned}</p>
               </div>
               <p className="text-xs opacity-80">This Month</p>
             </div>
             <div>
               <div className="flex items-center gap-1">
-                <TrendingDown className="w-4 h-4" />
-                <p className="text-lg font-bold">-{kudosData.thisMonthSpent}</p>
+                <TrendingDown className="w-3 h-3" />
+                <p className="text-base font-bold">-{kudosData.thisMonthSpent}</p>
               </div>
               <p className="text-xs opacity-80">Spent</p>
             </div>
@@ -172,7 +172,7 @@ export function CoinsPage({ kudosData, onKudosUpdate }: CoinsPageProps) {
                 transition={{ delay: index * 0.05 }}
               >
                 <Card>
-                  <CardContent className="p-3 flex items-center gap-3">
+                  <CardContent className="p-2.5 flex items-center gap-2">
                     <div className={cn(
                       'p-2 rounded-lg',
                       transaction.type === 'earned' ? 'bg-emerald-100 dark:bg-emerald-950/50' : 'bg-red-100 dark:bg-red-950/50'
@@ -241,12 +241,12 @@ export function CoinsPage({ kudosData, onKudosUpdate }: CoinsPageProps) {
                         Popular
                       </Badge>
                     )}
-                    <CardContent className="p-4">
-                      <div className="p-2 rounded-lg bg-gradient-to-br from-amber-500/20 to-yellow-500/20 w-fit mb-3">
-                        <IconComponent className="w-5 h-5 text-amber-600" />
+                    <CardContent className="p-3">
+                      <div className="p-2 rounded-lg bg-gradient-to-br from-amber-500/20 to-yellow-500/20 w-fit mb-2">
+                        <IconComponent className="w-4 h-4 text-amber-600" />
                       </div>
                       <h3 className="font-semibold text-sm mb-1">{reward.name}</h3>
-                      <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{reward.description}</p>
+                      <p className="text-xs text-muted-foreground line-clamp-2 mb-2">{reward.description}</p>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1 text-amber-500">
                           <Sparkles className="w-4 h-4" />

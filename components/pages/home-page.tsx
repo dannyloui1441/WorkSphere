@@ -83,7 +83,7 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
           <Dialog>
             <DialogTrigger asChild>
               <button className="relative">
-                <Avatar className="w-12 h-12 ring-2 ring-primary/20">
+                <Avatar className="w-10 h-10 ring-2 ring-primary/20">
                   <AvatarImage src={currentUser.avatar} alt={currentUser.name} />
                   <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
                     KR
@@ -191,16 +191,16 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
             className="bg-gradient-to-br from-amber-500/10 to-yellow-500/10 border-amber-200/50 dark:border-amber-800/50 cursor-pointer hover:shadow-md transition-shadow"
             onClick={() => onNavigate('kudos')}
           >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-2">
+            <CardContent className="p-3">
+              <div className="flex items-center justify-between mb-1">
                 <div className="p-2 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-500">
                   <Sparkles className="w-4 h-4 text-white" />
                 </div>
                 <ChevronRight className="w-4 h-4 text-muted-foreground" />
               </div>
-              <p className="text-2xl font-bold">{kudosData.balance.toLocaleString()}</p>
+              <p className="text-xl font-bold">{kudosData.balance.toLocaleString()}</p>
               <p className="text-xs text-muted-foreground">Kudos Balance</p>
-              <p className="text-xs text-emerald-600 font-medium mt-1">+125 this week</p>
+              <p className="text-xs text-emerald-600 font-medium">+125 this week</p>
             </CardContent>
           </Card>
         </motion.div>
@@ -210,16 +210,16 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
             className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-purple-200/50 dark:border-purple-800/50 cursor-pointer hover:shadow-md transition-shadow"
             onClick={() => onNavigate('tasks')}
           >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-2">
+            <CardContent className="p-3">
+              <div className="flex items-center justify-between mb-1">
                 <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500">
                   <ListTodo className="w-4 h-4 text-white" />
                 </div>
                 <ChevronRight className="w-4 h-4 text-muted-foreground" />
               </div>
-              <p className="text-2xl font-bold">{activeTasks.length}</p>
+              <p className="text-xl font-bold">{activeTasks.length}</p>
               <p className="text-xs text-muted-foreground">Active Tasks</p>
-              <p className="text-xs text-red-500 font-medium mt-1">{highPriorityCount} high priority</p>
+              <p className="text-xs text-red-500 font-medium">{highPriorityCount} high priority</p>
             </CardContent>
           </Card>
         </motion.div>
@@ -231,13 +231,13 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
           className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-blue-200/50 dark:border-blue-800/50 mb-6 cursor-pointer hover:shadow-md transition-shadow"
           onClick={() => onNavigate('team')}
         >
-          <CardContent className="p-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
+          <CardContent className="p-3 flex items-center justify-between">
+            <div className="flex items-center gap-2">
               <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500">
                 <Users className="w-4 h-4 text-white" />
               </div>
               <div>
-                <p className="font-semibold">My Team</p>
+                <p className="font-semibold text-sm">My Team</p>
                 <p className="text-xs text-muted-foreground">5 members &bull; 2 active tasks</p>
               </div>
             </div>
@@ -264,7 +264,7 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
                   announcement.priority === 'low' && 'border-l-4 border-l-gray-400'
                 )}
               >
-                <CardContent className="p-3">
+                <CardContent className="p-2.5">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-0.5">
@@ -310,8 +310,8 @@ export function HomePage({ isPunchedIn, punchInTime, onNavigate, kudosData }: Ho
               whileTap={{ scale: 0.98 }}
             >
               <Card className="cursor-pointer hover:shadow-md transition-shadow">
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between gap-3">
+                <CardContent className="p-3">
+                  <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <Badge 

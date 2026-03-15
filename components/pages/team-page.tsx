@@ -92,7 +92,7 @@ export function TeamPage({ taskChatId, onClearTaskChat }: TeamPageProps) {
                 whileTap={{ scale: 0.95 }}
               >
                 <div className="relative">
-                  <Avatar className="w-14 h-14 ring-2 ring-border">
+                  <Avatar className="w-12 h-12 ring-2 ring-border">
                     <AvatarImage src={member.avatar} alt={member.name} />
                     <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-sm">
                       {member.name.split(' ').map(n => n[0]).join('')}
@@ -131,7 +131,7 @@ export function TeamPage({ taskChatId, onClearTaskChat }: TeamPageProps) {
                 transition={{ delay: index * 0.1 }}
               >
                 <Card>
-                  <CardContent className="p-4">
+                  <CardContent className="p-3">
                     <div className="flex items-start gap-3">
                       <div className={cn(
                         'p-2 rounded-lg mt-0.5',

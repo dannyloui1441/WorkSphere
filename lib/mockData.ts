@@ -138,7 +138,7 @@ export const tasks: Task[] = [
     priority: 'high',
     dueDate: 'Today',
     dueTime: '5:00 PM',
-    coins: 150,
+    coins: 35,
     status: 'pending',
     assignedBy: 'Alex Johnson',
     assignedAt: 'Mar 14 2026 9:00 AM',
@@ -151,7 +151,7 @@ export const tasks: Task[] = [
     priority: 'medium',
     dueDate: 'Tomorrow',
     dueTime: '12:00 PM',
-    coins: 75,
+    coins: 20,
     status: 'acknowledged',
     assignedBy: 'Sarah Williams',
     assignedAt: 'Mar 13 2026 10:30 AM',
@@ -164,7 +164,7 @@ export const tasks: Task[] = [
     priority: 'low',
     dueDate: 'Friday',
     dueTime: '3:00 PM',
-    coins: 100,
+    coins: 25,
     status: 'completed',
     assignedBy: 'Michael Brown',
     assignedAt: 'Mar 12 2026 2:00 PM',
@@ -177,7 +177,7 @@ export const tasks: Task[] = [
     priority: 'medium',
     dueDate: 'Tomorrow',
     dueTime: '9:00 AM',
-    coins: 50,
+    coins: 15,
     status: 'pending',
     assignedBy: 'Emily Davis',
     assignedAt: 'Mar 14 2026 11:00 AM',
@@ -190,7 +190,7 @@ export const tasks: Task[] = [
     priority: 'high',
     dueDate: 'Today',
     dueTime: '4:00 PM',
-    coins: 125,
+    coins: 30,
     status: 'acknowledged',
     assignedBy: 'David Wilson',
     assignedAt: 'Mar 14 2026 8:30 AM',
@@ -269,10 +269,10 @@ export const rewards: Reward[] = [
 ]
 
 export const initialKudosData = {
-  balance: 3250,
-  lifetimeEarned: 4450,
-  thisMonthEarned: 325,
-  thisMonthSpent: 350
+  balance: 320,
+  lifetimeEarned: 890,
+  thisMonthEarned: 85,
+  thisMonthSpent: 60
 }
 
 export const chatMessages: ChatMessage[] = [

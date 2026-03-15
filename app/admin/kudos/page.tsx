@@ -37,11 +37,11 @@ interface CatalogueReward extends Reward {
 
 // Employee kudos balances
 const employeeKudosData = [
-  { id: 'EMP001', name: 'K Ramachandran', role: 'Software Engineer', balance: 3250 },
-  { id: 'EMP002', name: 'Daniel', role: 'UX Designer', balance: 2780 },
-  { id: 'EMP003', name: 'Benito', role: 'Backend Developer', balance: 1950 },
-  { id: 'EMP004', name: 'Swithin', role: 'QA Engineer', balance: 2100 },
-  { id: 'EMP005', name: 'John', role: 'Project Manager', balance: 4200 },
+  { id: 'EMP001', name: 'K Ramachandran', role: 'Software Engineer', balance: 320 },
+  { id: 'EMP002', name: 'Daniel', role: 'UX Designer', balance: 245 },
+  { id: 'EMP003', name: 'Benito', role: 'Backend Developer', balance: 180 },
+  { id: 'EMP004', name: 'Swithin', role: 'QA Engineer', balance: 195 },
+  { id: 'EMP005', name: 'John', role: 'Project Manager', balance: 410 },
 ]
 
 const barColors = [

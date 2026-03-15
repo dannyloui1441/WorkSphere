@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet'
 import { adminEmployees, getEmployeeTasks, getEmployeeKudosHistory, getEmployeeAttendanceHistory } from '@/lib/adminMockData'
 import { cn } from '@/lib/utils'
 
@@ -390,7 +390,12 @@ export default function EmployeeDetailPage({ params }: { params: Promise<{ id: s
       <Sheet open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
         <SheetContent side="bottom" className="max-h-[80vh] overflow-y-auto rounded-t-2xl">
           <SheetHeader className="flex flex-row items-center justify-between pb-4 border-b">
-            <SheetTitle className="text-base">Attendance Details</SheetTitle>
+            <div>
+              <SheetTitle className="text-base">Attendance Details</SheetTitle>
+              <SheetDescription className="sr-only">
+                View check-in, check-out times and daily attendance metrics
+              </SheetDescription>
+            </div>
             <Button 
               variant="ghost" 
               size="icon" 

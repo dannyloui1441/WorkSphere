@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { format } from 'date-fns'
 import { AlertTriangle, Clock, Sparkles, User, Check, ChevronDown, Users, MessageCircle, Filter } from 'lucide-react'
@@ -19,6 +19,22 @@ interface PingsPageProps {
   onOpenTaskChat?: (taskId: string) => void
 }
 
+// Admin task shape from localStorage
+interface AdminTask {
+  id: string
+  title: string
+  description: string
+  assignedTo: string
+  assignedToId: string
+  isTeamTask: boolean
+  assignedToIds: string[]
+  priority: 'high' | 'medium' | 'low'
+  kudos: number
+  dueDate: string
+  dueTime: string
+  status: 'pending' | 'in-progress' | 'completed'
+}
+
 export function PingsPage({ onKudosUpdate, onOpenTaskChat }: PingsPageProps) {
   const [tasks, setTasks] = useState<Task[]>(initialTasks)
   const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null)
@@ -28,6 +44,50 @@ export function PingsPage({ onKudosUpdate, onOpenTaskChat }: PingsPageProps) {
     task: null,
     action: null
   })
+  
+  // Load and merge admin tasks from localStorage
+  useEffect(() => {
+    const loadAdminTasks = () => {
+      try {
+        const adminTasksJson = localStorage.getItem('admin_tasks')
+        if (!adminTasksJson) return
+        
+        const adminTasks: AdminTask[] = JSON.parse(adminTasksJson)
+        
+        // Filter tasks assigned to EMP001 (K Ramachandran) or team tasks
+        const relevantTasks = adminTasks.filter(task => 
+          task.assignedToId === 'EMP001' || task.isTeamTask === true
+        )
+        
+        // Map admin tasks to the Task interface
+        const mappedTasks: Task[] = relevantTasks.map(adminTask => ({
+          id: adminTask.id,
+          title: adminTask.title,
+          description: adminTask.description,
+          priority: adminTask.priority,
+          dueDate: adminTask.dueDate,
+          dueTime: adminTask.dueTime,
+          coins: adminTask.kudos, // Map kudos to coins
+          status: adminTask.status === 'in-progress' ? 'acknowledged' : adminTask.status as TaskStatus,
+          assignedBy: 'Admin',
+          assignedAt: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' }),
+          isTeamTask: adminTask.isTeamTask,
+          assignedTo: adminTask.isTeamTask ? adminTask.assignedToIds : undefined
+        }))
+        
+        // Merge with initial tasks, avoiding duplicates by ID
+        setTasks(prevTasks => {
+          const existingIds = new Set(initialTasks.map(t => t.id))
+          const newAdminTasks = mappedTasks.filter(t => !existingIds.has(t.id))
+          return [...initialTasks, ...newAdminTasks]
+        })
+      } catch (error) {
+        console.error('Error loading admin tasks:', error)
+      }
+    }
+    
+    loadAdminTasks()
+  }, [])
 
   const filterTasks = (taskList: Task[]) => {
     if (statusFilter === 'all') return taskList

@@ -22,7 +22,7 @@ export default function EmployeesPage() {
   const router = useRouter()
 
   return (
-    <div className="px-4 py-4 md:px-6 space-y-4">
+    <div className="w-full min-w-0 px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
       <div className="mb-4">
         <h1 className="text-xl font-bold text-foreground">Employees</h1>
@@ -30,12 +30,12 @@ export default function EmployeesPage() {
       </div>
 
       {/* Mobile Card List */}
-      <div className="md:hidden space-y-2">
+      <div className="md:hidden space-y-2 w-full min-w-0">
         {adminEmployees.map((employee) => (
           <Card 
             key={employee.id}
             onClick={() => router.push(`/admin/employees/${employee.id}`)}
-            className="cursor-pointer hover:bg-muted/50 transition-colors"
+            className="cursor-pointer hover:bg-muted/50 transition-colors min-w-0 overflow-hidden"
           >
             <CardContent className="p-3">
               <div className="flex items-start gap-2">
@@ -87,7 +87,7 @@ export default function EmployeesPage() {
       </div>
 
       {/* Desktop Table */}
-      <Card className="hidden md:block">
+      <Card className="hidden md:block min-w-0 overflow-hidden">
         <CardHeader className="pb-2 pt-4 px-4">
           <CardTitle className="text-sm">All Employees</CardTitle>
         </CardHeader>

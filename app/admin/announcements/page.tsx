@@ -275,7 +275,7 @@ export default function AnnouncementsPage() {
   }
 
   return (
-    <div className="px-4 py-4 md:px-6 space-y-4">
+    <div className="w-full min-w-0 px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -410,8 +410,8 @@ export default function AnnouncementsPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full min-w-0">
+        <Card className="min-w-0 overflow-hidden">
           <CardContent className="p-3">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
@@ -424,7 +424,7 @@ export default function AnnouncementsPage() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="min-w-0 overflow-hidden">
           <CardContent className="p-3">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/30">
@@ -437,7 +437,7 @@ export default function AnnouncementsPage() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="min-w-0 overflow-hidden">
           <CardContent className="p-3">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30">
@@ -450,7 +450,7 @@ export default function AnnouncementsPage() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="min-w-0 overflow-hidden">
           <CardContent className="p-3">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-amber-100 dark:bg-amber-900/30">
@@ -481,7 +481,7 @@ export default function AnnouncementsPage() {
             <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-border hidden md:block" />
             
             {filteredAnnouncements.length === 0 ? (
-              <Card>
+              <Card className="min-w-0 overflow-hidden">
                 <CardContent className="py-12 text-center">
                   <Megaphone className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
                   <p className="text-muted-foreground">No announcements found</p>
@@ -493,7 +493,7 @@ export default function AnnouncementsPage() {
                   {/* Timeline dot */}
                   <div className="absolute left-4 top-6 w-4 h-4 rounded-full bg-primary border-4 border-background hidden md:block" />
                   
-                  <Card className={`hover:shadow-md transition-shadow ${announcement.pinned ? 'ring-2 ring-primary/20' : ''}`}>
+                  <Card className={`hover:shadow-md transition-shadow min-w-0 overflow-hidden ${announcement.pinned ? 'ring-2 ring-primary/20' : ''}`}>
                     <CardHeader className="pb-2">
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                         <div className="flex items-start gap-3">

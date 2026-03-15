@@ -267,7 +267,7 @@ export default function KudosPage() {
   }
 
   return (
-    <div className="px-4 py-4 md:px-6 space-y-4">
+    <div className="w-full min-w-0 px-4 py-4 md:px-6 space-y-4">
       {/* Header */}
       <div className="mb-4">
         <h1 className="text-xl font-bold text-foreground">Kudos</h1>
@@ -275,7 +275,7 @@ export default function KudosPage() {
       </div>
 
       {/* Leaderboard */}
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardHeader className="pb-2 pt-4 px-4">
           <CardTitle className="text-sm flex items-center gap-2">
             <Award className="w-4 h-4 text-amber-500" />
@@ -344,7 +344,7 @@ export default function KudosPage() {
       </Card>
 
       {/* Award Performance Bonus */}
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardHeader className="pb-2 pt-4 px-4">
           <CardTitle className="text-sm flex items-center gap-2">
             <Gift className="w-4 h-4 text-purple-500" />
@@ -405,7 +405,7 @@ export default function KudosPage() {
       </Card>
 
       {/* Rewards Catalogue */}
-      <Card>
+      <Card className="min-w-0 overflow-hidden">
         <CardHeader className="pb-2 pt-4 px-4">
           <div className="flex items-center justify-between">
             <CardTitle className="text-sm flex items-center gap-2">
